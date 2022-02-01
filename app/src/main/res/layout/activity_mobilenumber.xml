@@ -9,24 +9,24 @@
     tools:context=".RegisterMobileNumberActivity">
 
     <TextView
-        android:layout_marginBottom="10dp"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="Enter your Mobile Number"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="292dp" />
+        android:layout_marginRight="69dp"
+         />
 
     <EditText
-        android:layout_marginBottom="10dp"
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/mobileNumber"
         android:layout_width="311dp"
         android:layout_height="72dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="Mobile Number"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         tools:layout_editor_absoluteX="41dp"
         tools:layout_editor_absoluteY="362dp" />
 

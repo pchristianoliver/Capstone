@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Contact Tracing Application</string>
+    <string name="register_here"><u>Register here</u></string>
 </resources>
