@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,RegistrationActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterMobileNumberActivity.class);
                 startActivity(intent);
             }
         });

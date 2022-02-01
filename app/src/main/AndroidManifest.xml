@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContactTracingApplication">
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".RegisterMobileNumberActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
