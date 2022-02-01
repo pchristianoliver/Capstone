@@ -24,16 +24,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, RegistrationActivity.class);
                 startActivity(i);
+
             }
+
+
         });
-
-
-
-
-
-        }
     }
-
+}
 
 
 //comment
