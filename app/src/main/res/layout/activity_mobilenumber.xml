@@ -15,6 +15,10 @@
         android:layout_marginBottom="10dp"
         android:text="Enter your Mobile Number"
         android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:paddingBottom="12dp"
         android:layout_marginRight="69dp"
          />
 
