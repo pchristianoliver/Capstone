@@ -22,10 +22,10 @@
         android:layout_width="303sp"
         android:layout_height="48dp"
         android:layout_marginTop="92dp"
+        android:autoText="false"
         android:background="@drawable/input_field"
         android:ems="10"
         android:inputType="phone"
-        android:hint="Mobile Number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
