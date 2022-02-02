@@ -1,99 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OTPActivity"
     android:gravity="center"
-    android:orientation="vertical">
+    tools:context=".OTPActivity">
+
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_above="@+id/linearPanel"
+        android:text="One time password " />
 
 
     <LinearLayout
+        android:id="@+id/linearPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edDigit1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="-"
-            android:imeOptions="actionNext"
-            android:singleLine="true"
-            android:inputType="number"
-            android:maxLength="1" />
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center">
 
-        <EditText
-            android:id="@+id/edDigit2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="-"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="1" />
+            <EditText
+                android:id="@+id/edDigit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="-"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1"
+                android:singleLine="true" />
 
-        <EditText
-            android:id="@+id/edDigit3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="-"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="1" />
+            <EditText
+                android:id="@+id/edDigit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="-"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1" />
 
-        <EditText
-            android:id="@+id/edDigit4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="-"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="1" />
-        <EditText
-            android:id="@+id/edDigit5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="-"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="1" />
-        <EditText
-            android:id="@+id/edDigit6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="-"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="1" />
+            <EditText
+                android:id="@+id/edDigit3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="-"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1" />
 
+            <EditText
+                android:id="@+id/edDigit4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="-"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1" />
+
+            <EditText
+                android:id="@+id/edDigit5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="-"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1" />
+
+            <EditText
+                android:id="@+id/edDigit6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="-"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:text="Proceed"
+            app:backgroundTint="@color/mclcolor">
+
+        </Button>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/proceed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        app:backgroundTint="@color/mclcolor"
-        android:text="Proceed"
-        android:layout_marginTop="20dp">
 
-    </Button>
-
-
-</LinearLayout>
+</RelativeLayout>
 
