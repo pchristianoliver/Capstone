@@ -74,12 +74,95 @@ public class RegisterInformationActivity extends AppCompatActivity {
             }
 
             //Adapter for region
+            final String[] regionCode = {"-1"};
             ArrayAdapter<RegionModel> adapterRegion = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, regions);
             adapterRegion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             regionSpinner.setAdapter(adapterRegion);
             regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    try {
+                        RegionModel region = (RegionModel) parent.getItemAtPosition(position);
+                        regionCode[0] = region.getRegCode();
+                        //Reading province
+                        //Open and read json file
+                        String jsonStringProvince = null;
+
+                        jsonStringProvince = openAndReadJsonFile("refprovince.json");
+
+
+                        //put json file in json object
+                        JSONObject objProvince = new JSONObject(jsonStringProvince);
+                        JSONArray recordsArrayProvince = objProvince.getJSONArray("RECORDS");
+
+                        List<ProvinceModel> provinces = new ArrayList<>();
+                        for (int i = 0; i < recordsArrayProvince.length(); i++) {
+                            JSONObject jsonObject = recordsArrayProvince.getJSONObject(i);
+                            if (jsonObject.getString("regCode").equals(regionCode[0])) {
+                                provinces.add(
+                                        new ProvinceModel(
+                                                Integer.parseInt(jsonObject.getString("id")),
+                                                jsonObject.getString("psgcCode"),
+                                                jsonObject.getString("provDesc"),
+                                                jsonObject.getString("regCode"),
+                                                jsonObject.getString("provCode")));
+                            }
+                        }
+
+                        //Adapter for province
+                        ArrayAdapter<ProvinceModel> adapterProvince = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, provinces);
+                        adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        provinceSpinner.setAdapter(adapterProvince);
+                        provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        //Reading city
+                        //read and open json file
+                        String jsonStringCity = openAndReadJsonFile("refcitymun.json");
+
+                        //put json file in json object
+                        JSONObject obj = new JSONObject(jsonStringCity);
+                        JSONArray recordsArray = obj.getJSONArray("RECORDS");
+
+                        List<CityModel> cities = new ArrayList<>();
+                        for (int i = 0; i < recordsArray.length(); i++) {
+                            JSONObject jsonObject = recordsArray.getJSONObject(i);
+                            cities.add(
+                                    new CityModel(
+                                            Integer.parseInt(jsonObject.getString("id")),
+                                            jsonObject.getString("psgcCode"),
+                                            jsonObject.getString("citymunDesc"),
+                                            jsonObject.getString("regDesc"),
+                                            jsonObject.getString("provCode"),
+                                            jsonObject.getString("citymunCode")));
+                        }
+
+                        //Adapter for city
+                        ArrayAdapter<CityModel> adapterCity = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, cities);
+                        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(adapterCity);
+                        citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
 
                 }
 
@@ -87,79 +170,11 @@ public class RegisterInformationActivity extends AppCompatActivity {
                 public void onNothingSelected(AdapterView<?> parent) {
 
                 }
+
             });
 
-            //Reading province
-            //Open and read json file
-            String jsonStringProvince = openAndReadJsonFile("refprovince.json");
 
-            //put json file in json object
-            JSONObject objProvince = new JSONObject(jsonStringProvince);
-            JSONArray recordsArrayProvince = objProvince.getJSONArray("RECORDS");
 
-            List<ProvinceModel> provinces = new ArrayList<>();
-            for (int i = 0; i < recordsArrayProvince.length(); i++) {
-                JSONObject jsonObject = recordsArrayProvince.getJSONObject(i);
-                provinces.add(
-                        new ProvinceModel(
-                                Integer.parseInt(jsonObject.getString("id")),
-                                jsonObject.getString("psgcCode"),
-                                jsonObject.getString("provDesc"),
-                                jsonObject.getString("regCode"),
-                                jsonObject.getString("provCode")));
-            }
-
-            //Adapter for province
-            ArrayAdapter<ProvinceModel> adapterProvince = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, provinces);
-            adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            provinceSpinner.setAdapter(adapterProvince);
-            provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            //Reading city
-            //read and open json file
-            String jsonStringCity = openAndReadJsonFile("refcitymun.json");
-
-            //put json file in json object
-            JSONObject obj = new JSONObject(jsonStringCity);
-            JSONArray recordsArray = obj.getJSONArray("RECORDS");
-
-            List<CityModel> cities = new ArrayList<>();
-            for (int i = 0; i < recordsArray.length(); i++) {
-                JSONObject jsonObject = recordsArray.getJSONObject(i);
-                cities.add(
-                        new CityModel(
-                                Integer.parseInt(jsonObject.getString("id")),
-                                jsonObject.getString("psgcCode"),
-                                jsonObject.getString("citymunDesc"),
-                                jsonObject.getString("regDesc"),
-                                jsonObject.getString("provCode"),
-                                jsonObject.getString("citymunCode")));
-            }
-
-            //Adapter for city
-            ArrayAdapter<CityModel> adapterCity = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, cities);
-            adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            citySpinner.setAdapter(adapterCity);
-            citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
