@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class RegisterInformationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class RegisterInformationActivity extends AppCompatActivity {
 
     private final String[] gender = {"Male", "Female"};
 
@@ -80,7 +80,17 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
             ArrayAdapter<RegionModel> adapter = new ArrayAdapter<RegionModel>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, regions);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             regionSpinner.setAdapter(adapter);
-            regionSpinner.setOnItemSelectedListener(this);
+            regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -91,19 +101,19 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
         ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
         adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapterGender);
-        genderSpinner.setOnItemSelectedListener(this);
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+              
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         initializeCalendar();
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Selected User: " + gender[position], Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     private void initializeCalendar() {
