@@ -28,7 +28,7 @@ import java.util.List;
 
 public class RegisterInformationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private final String[] gender = {"Male","Female"};
+    private final String[] gender = {"Male", "Female"};
 
     private Spinner regionSpinner;
     private EditText firstName, lastName, middleName, birthdate;
@@ -66,7 +66,7 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
             JSONArray recordsArray = obj.getJSONArray("RECORDS");
 
             List<RegionModel> regions = new ArrayList<>();
-            for (int i = 0;i < recordsArray.length(); i++){
+            for (int i = 0; i < recordsArray.length(); i++) {
                 JSONObject jsonObject = recordsArray.getJSONObject(i);
                 regions.add(
                         new RegionModel(
@@ -87,8 +87,6 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
         }
 
 
-
-
         //Adapter for gender
         ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
         adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -100,7 +98,7 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Selected User: "+gender[position] , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Selected User: " + gender[position], Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -119,7 +117,7 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        RegisterInformationActivity.this, android.R.style.Theme_Translucent, setListener,year,month,day);
+                        RegisterInformationActivity.this, android.R.style.Theme_Translucent, setListener, year, month, day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
                 datePickerDialog.show();
 
@@ -129,8 +127,8 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month=month+1;
-                String date = day+"/"+month+"/"+year;
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
                 birthdate.setText(date);
 
             }
@@ -142,11 +140,11 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
                 DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterInformationActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month=month+1;
-                        String date = day+"/"+month+"/"+year;
+                        month = month + 1;
+                        String date = day + "/" + month + "/" + year;
                         birthdate.setText(date);
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
