@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -15,18 +14,26 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.contacttracingapplication.Models.RegionModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 public class RegisterInformationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    String[] gender = {"Male","Female"};
-    private Spinner region;
-    private EditText firstName, lastName, middleName, birthdate;
-    DatePickerDialog.OnDateSetListener setListener;
+    private final String[] gender = {"Male","Female"};
 
+    private Spinner regionSpinner;
+    private EditText firstName, lastName, middleName, birthdate;
+    private DatePickerDialog.OnDateSetListener setListener;
+    private Spinner genderSpinner;
 
 
     @Override
@@ -38,25 +45,70 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
         lastName = findViewById(R.id.lastname);
         middleName = findViewById(R.id.middlename);
         birthdate = findViewById(R.id.birthdate);
-        region = findViewById(R.id.region);
+        regionSpinner = findViewById(R.id.region);
+        genderSpinner = (Spinner) findViewById(R.id.spinner);
+
+
+        InputStream is = null;
+        try {
+            //Open json file
+            is = getAssets().open("refregion.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+
+            //Read json file
+            is.read(buffer);
+            is.close();
+            String jsonString = new String(buffer, "UTF-8");
+
+            //put json file in json object
+            JSONObject obj = new JSONObject(jsonString);
+            JSONArray recordsArray = obj.getJSONArray("RECORDS");
+
+            List<RegionModel> regions = new ArrayList<>();
+            for (int i = 0;i < recordsArray.length(); i++){
+                JSONObject jsonObject = recordsArray.getJSONObject(i);
+                regions.add(
+                        new RegionModel(
+                                Integer.parseInt(jsonObject.getString("id")),
+                                jsonObject.getString("psgcCode"),
+                                jsonObject.getString("regDesc"),
+                                jsonObject.getString("regCode")));
+            }
+
+            //Adapter for region
+            ArrayAdapter<RegionModel> adapter = new ArrayAdapter<RegionModel>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, regions);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            regionSpinner.setAdapter(adapter);
+            regionSpinner.setOnItemSelectedListener(this);
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
 
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        region.setAdapter(adapter);
-        region.setOnItemSelectedListener(this);
-        String string = "";
 
-
-
-        //this if for gender
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
+        //Adapter for gender
         ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapterGender);
-        spin.setOnItemSelectedListener(this);
+        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(adapterGender);
+        genderSpinner.setOnItemSelectedListener(this);
 
+        initializeCalendar();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getApplicationContext(), "Selected User: "+gender[position] , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void initializeCalendar() {
         //this is for birthdate
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -98,17 +150,6 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
                 datePickerDialog.show();
             }
         });
-
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Selected User: "+gender[position] , Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
