@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.contacttracingapplication.Models.BarangayModel;
 import com.example.contacttracingapplication.Models.CityModel;
@@ -53,28 +52,19 @@ public class RegisterInformationActivity extends AppCompatActivity {
         citySpinner = findViewById(R.id.city);
         barangaySpinner = findViewById(R.id.barangay);
         genderSpinner = findViewById(R.id.spinner);
-        InputStream is = null;
 
-
-        //Reading region
         try {
-            //Open json file
-            is = getAssets().open("refregion.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            //Read json file
-            is.read(buffer);
-            is.close();
-            String jsonString = new String(buffer, "UTF-8");
+            //Reading region
+            //Open and read json file
+            String jsonStringRegion = openAndReadJsonFile("refregion.json");
 
             //put json file in json object
-            JSONObject obj = new JSONObject(jsonString);
-            JSONArray recordsArray = obj.getJSONArray("RECORDS");
+            JSONObject objRegion = new JSONObject(jsonStringRegion);
+            JSONArray recordsArrayRegion = objRegion.getJSONArray("RECORDS");
 
             List<RegionModel> regions = new ArrayList<>();
-            for (int i = 0; i < recordsArray.length(); i++) {
-                JSONObject jsonObject = recordsArray.getJSONObject(i);
+            for (int i = 0; i < recordsArrayRegion.length(); i++) {
+                JSONObject jsonObject = recordsArrayRegion.getJSONObject(i);
                 regions.add(
                         new RegionModel(
                                 Integer.parseInt(jsonObject.getString("id")),
@@ -84,9 +74,9 @@ public class RegisterInformationActivity extends AppCompatActivity {
             }
 
             //Adapter for region
-            ArrayAdapter<RegionModel> adapter = new ArrayAdapter<RegionModel>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, regions);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            regionSpinner.setAdapter(adapter);
+            ArrayAdapter<RegionModel> adapterRegion = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, regions);
+            adapterRegion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            regionSpinner.setAdapter(adapterRegion);
             regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -99,29 +89,17 @@ public class RegisterInformationActivity extends AppCompatActivity {
                 }
             });
 
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-
-        //Reading province
-        try {
-            //Open json file
-            is = getAssets().open("refprovince.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            //Read json file
-            is.read(buffer);
-            is.close();
-            String jsonString = new String(buffer, "UTF-8");
+            //Reading province
+            //Open and read json file
+            String jsonStringProvince = openAndReadJsonFile("refprovince.json");
 
             //put json file in json object
-            JSONObject obj = new JSONObject(jsonString);
-            JSONArray recordsArray = obj.getJSONArray("RECORDS");
+            JSONObject objProvince = new JSONObject(jsonStringProvince);
+            JSONArray recordsArrayProvince = objProvince.getJSONArray("RECORDS");
 
             List<ProvinceModel> provinces = new ArrayList<>();
-            for (int i = 0; i < recordsArray.length(); i++) {
-                JSONObject jsonObject = recordsArray.getJSONObject(i);
+            for (int i = 0; i < recordsArrayProvince.length(); i++) {
+                JSONObject jsonObject = recordsArrayProvince.getJSONObject(i);
                 provinces.add(
                         new ProvinceModel(
                                 Integer.parseInt(jsonObject.getString("id")),
@@ -132,9 +110,9 @@ public class RegisterInformationActivity extends AppCompatActivity {
             }
 
             //Adapter for province
-            ArrayAdapter<ProvinceModel> adapter = new ArrayAdapter<ProvinceModel>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, provinces);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            provinceSpinner.setAdapter(adapter);
+            ArrayAdapter<ProvinceModel> adapterProvince = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, provinces);
+            adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            provinceSpinner.setAdapter(adapterProvince);
             provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -146,30 +124,12 @@ public class RegisterInformationActivity extends AppCompatActivity {
 
                 }
             });
-
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //Reading city
-        try {
-            //Open json file
-            is = getAssets().open("refcitymun.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            //Read json file
-            is.read(buffer);
-            is.close();
-            String jsonString = new String(buffer, "UTF-8");
+            //Reading city
+            //read and open json file
+            String jsonStringCity = openAndReadJsonFile("refcitymun.json");
 
             //put json file in json object
-            JSONObject obj = new JSONObject(jsonString);
+            JSONObject obj = new JSONObject(jsonStringCity);
             JSONArray recordsArray = obj.getJSONArray("RECORDS");
 
             List<CityModel> cities = new ArrayList<>();
@@ -186,9 +146,9 @@ public class RegisterInformationActivity extends AppCompatActivity {
             }
 
             //Adapter for city
-            ArrayAdapter<CityModel> adapter = new ArrayAdapter<CityModel>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, cities);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            citySpinner.setAdapter(adapter);
+            ArrayAdapter<CityModel> adapterCity = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, cities);
+            adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            citySpinner.setAdapter(adapterCity);
             citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -200,28 +160,18 @@ public class RegisterInformationActivity extends AppCompatActivity {
 
                 }
             });
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
         //Reading barangay
         try {
             //Open json file
-            is = getAssets().open("refbrgy.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            //Read json file
-            is.read(buffer);
-            is.close();
-            String jsonString = new String(buffer, "UTF-8");
+            //read and open json file
+            String jsonStringBrgy = openAndReadJsonFile("refbrgy.json");
 
             //put json file in json object
-            JSONObject obj = new JSONObject(jsonString);
+            JSONObject obj = new JSONObject(jsonStringBrgy);
             JSONArray recordsArray = obj.getJSONArray("RECORDS");
 
             List<BarangayModel> barangays = new ArrayList<>();
@@ -239,9 +189,9 @@ public class RegisterInformationActivity extends AppCompatActivity {
             }
 
             //Adapter for barangay
-            ArrayAdapter<BarangayModel> adapter = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, barangays);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            barangaySpinner.setAdapter(adapter);
+            ArrayAdapter<BarangayModel> adapterBrgy = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, barangays);
+            adapterBrgy.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            barangaySpinner.setAdapter(adapterBrgy);
             barangaySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -253,17 +203,23 @@ public class RegisterInformationActivity extends AppCompatActivity {
 
                 }
             });
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
 
         initializeGetGender();
         initializeCalendar();
+    }
+
+    private String openAndReadJsonFile(String fileName) throws IOException {
+        InputStream is = getAssets().open(fileName);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        String jsonString = new String(buffer, "UTF-8");
+        return jsonString;
     }
 
     private void initializeGetGender() {
