@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.contacttracingapplication.Models.BarangayModel;
 import com.example.contacttracingapplication.Models.CityModel;
 import com.example.contacttracingapplication.Models.ProvinceModel;
 import com.example.contacttracingapplication.Models.RegionModel;
@@ -189,6 +190,59 @@ public class RegisterInformationActivity extends AppCompatActivity {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             citySpinner.setAdapter(adapter);
             citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //Reading barangay
+        try {
+            //Open json file
+            is = getAssets().open("refbrgy.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+
+            //Read json file
+            is.read(buffer);
+            is.close();
+            String jsonString = new String(buffer, "UTF-8");
+
+            //put json file in json object
+            JSONObject obj = new JSONObject(jsonString);
+            JSONArray recordsArray = obj.getJSONArray("RECORDS");
+
+            List<BarangayModel> barangays = new ArrayList<>();
+            for (int i = 0; i < recordsArray.length(); i++) {
+                JSONObject jsonObject = recordsArray.getJSONObject(i);
+                barangays.add(
+                        new BarangayModel(
+                                Integer.parseInt(jsonObject.getString("id")),
+                                jsonObject.getString("brgyCode"),
+                                jsonObject.getString("brgyDesc"),
+                                jsonObject.getString("regCode"),
+                                jsonObject.getString("provCode"),
+                                jsonObject.getString("citymunCode")));
+
+            }
+
+            //Adapter for barangay
+            ArrayAdapter<BarangayModel> adapter = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, barangays);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            barangaySpinner.setAdapter(adapter);
+            barangaySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
