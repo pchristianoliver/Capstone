@@ -110,12 +110,113 @@ public class RegisterInformationActivity extends AppCompatActivity {
                         }
 
                         //Adapter for province
+                        final String[] provCode = {"-1"};
                         ArrayAdapter<ProvinceModel> adapterProvince = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, provinces);
                         adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         provinceSpinner.setAdapter(adapterProvince);
                         provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                try {
+                                    ProvinceModel province = (ProvinceModel) parent.getItemAtPosition(position);
+                                    provCode[0] = province.getProvCode();
+
+                                    //Reading city
+                                    //read and open json file
+                                    String jsonStringCity = null;
+                                    jsonStringCity = openAndReadJsonFile("refcitymun.json");
+
+
+                                    //put json file in json object
+                                    JSONObject obj = new JSONObject(jsonStringCity);
+                                    JSONArray recordsArray = obj.getJSONArray("RECORDS");
+
+                                    List<CityModel> cities = new ArrayList<>();
+                                    for (int i = 0; i < recordsArray.length(); i++) {
+                                        JSONObject jsonObject = recordsArray.getJSONObject(i);
+                                        if (jsonObject.getString("provCode").equals(provCode[0])) {
+                                            cities.add(
+                                                    new CityModel(
+                                                            Integer.parseInt(jsonObject.getString("id")),
+                                                            jsonObject.getString("psgcCode"),
+                                                            jsonObject.getString("citymunDesc"),
+                                                            jsonObject.getString("regDesc"),
+                                                            jsonObject.getString("provCode"),
+                                                            jsonObject.getString("citymunCode")));
+                                        }
+                                    }
+
+
+                                    //Adapter for city
+                                    final String[] cityCode = {"-1"};
+                                    ArrayAdapter adapterCity = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, cities);
+                                    adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    citySpinner.setAdapter(adapterCity);
+                                    citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                        @Override
+                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                            CityModel city = (CityModel) parent.getItemAtPosition(position);
+                                            cityCode[0] = city.getCitymunCode();
+
+                                            //Reading barangay
+                                            try {
+                                                //Open json file
+                                                //read and open json file
+                                                String jsonStringBrgy = openAndReadJsonFile("refbrgy.json");
+
+                                                //put json file in json object
+                                                JSONObject obj = new JSONObject(jsonStringBrgy);
+                                                JSONArray recordsArray = obj.getJSONArray("RECORDS");
+
+                                                List<BarangayModel> barangays = new ArrayList<>();
+                                                for (int i = 0; i < recordsArray.length(); i++) {
+                                                    JSONObject jsonObject = recordsArray.getJSONObject(i);
+                                                    if (jsonObject.getString("citymunCode").equals(cityCode[0])) {
+
+
+                                                        barangays.add(
+                                                                new BarangayModel(
+                                                                        Integer.parseInt(jsonObject.getString("id")),
+                                                                        jsonObject.getString("brgyCode"),
+                                                                        jsonObject.getString("brgyDesc"),
+                                                                        jsonObject.getString("regCode"),
+                                                                        jsonObject.getString("provCode"),
+                                                                        jsonObject.getString("citymunCode")));
+
+                                                    }
+                                                }
+
+                                                //Adapter for barangay
+                                                ArrayAdapter<BarangayModel> adapterBrgy = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, barangays);
+                                                adapterBrgy.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                barangaySpinner.setAdapter(adapterBrgy);
+                                                barangaySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                    @Override
+                                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                                    }
+                                                });
+                                            } catch (IOException | JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void onNothingSelected(AdapterView<?> parent) {
+
+                                        }
+                                    });
+                                } catch (IOException | JSONException e) {
+                                    e.printStackTrace();
+                                }
+
 
                             }
 
@@ -124,42 +225,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
 
                             }
                         });
-                        //Reading city
-                        //read and open json file
-                        String jsonStringCity = openAndReadJsonFile("refcitymun.json");
 
-                        //put json file in json object
-                        JSONObject obj = new JSONObject(jsonStringCity);
-                        JSONArray recordsArray = obj.getJSONArray("RECORDS");
-
-                        List<CityModel> cities = new ArrayList<>();
-                        for (int i = 0; i < recordsArray.length(); i++) {
-                            JSONObject jsonObject = recordsArray.getJSONObject(i);
-                            cities.add(
-                                    new CityModel(
-                                            Integer.parseInt(jsonObject.getString("id")),
-                                            jsonObject.getString("psgcCode"),
-                                            jsonObject.getString("citymunDesc"),
-                                            jsonObject.getString("regDesc"),
-                                            jsonObject.getString("provCode"),
-                                            jsonObject.getString("citymunCode")));
-                        }
-
-                        //Adapter for city
-                        ArrayAdapter<CityModel> adapterCity = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, cities);
-                        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        citySpinner.setAdapter(adapterCity);
-                        citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
                     }
@@ -174,50 +240,6 @@ public class RegisterInformationActivity extends AppCompatActivity {
             });
 
 
-
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-
-        //Reading barangay
-        try {
-            //Open json file
-            //read and open json file
-            String jsonStringBrgy = openAndReadJsonFile("refbrgy.json");
-
-            //put json file in json object
-            JSONObject obj = new JSONObject(jsonStringBrgy);
-            JSONArray recordsArray = obj.getJSONArray("RECORDS");
-
-            List<BarangayModel> barangays = new ArrayList<>();
-            for (int i = 0; i < recordsArray.length(); i++) {
-                JSONObject jsonObject = recordsArray.getJSONObject(i);
-                barangays.add(
-                        new BarangayModel(
-                                Integer.parseInt(jsonObject.getString("id")),
-                                jsonObject.getString("brgyCode"),
-                                jsonObject.getString("brgyDesc"),
-                                jsonObject.getString("regCode"),
-                                jsonObject.getString("provCode"),
-                                jsonObject.getString("citymunCode")));
-
-            }
-
-            //Adapter for barangay
-            ArrayAdapter<BarangayModel> adapterBrgy = new ArrayAdapter<>(RegisterInformationActivity.this, android.R.layout.simple_spinner_item, barangays);
-            adapterBrgy.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            barangaySpinner.setAdapter(adapterBrgy);
-            barangaySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
