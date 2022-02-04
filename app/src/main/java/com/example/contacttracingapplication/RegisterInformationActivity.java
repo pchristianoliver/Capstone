@@ -15,12 +15,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 
 public class RegisterInformationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String[] gender = {"Male","Female"};
+    private Spinner region;
     private EditText firstName, lastName, middleName, birthdate;
     DatePickerDialog.OnDateSetListener setListener;
 
@@ -35,13 +38,23 @@ public class RegisterInformationActivity extends AppCompatActivity implements Ad
         lastName = findViewById(R.id.lastname);
         middleName = findViewById(R.id.middlename);
         birthdate = findViewById(R.id.birthdate);
+        region = findViewById(R.id.region);
+
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        region.setAdapter(adapter);
+        region.setOnItemSelectedListener(this);
+        String string = "";
+
 
 
         //this if for gender
         Spinner spin = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
+        ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapter);
+        spin.setAdapter(adapterGender);
         spin.setOnItemSelectedListener(this);
 
         //this is for birthdate

@@ -96,6 +96,19 @@
             android:layout_height="36dp"
             android:background="@drawable/input_field" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Region"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/region"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/input_field" />
+
 
     </LinearLayout>
 
