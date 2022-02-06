@@ -27,10 +27,13 @@
         android:layout_width="311dp"
         android:layout_height="72dp"
         android:layout_marginBottom="10dp"
+        android:autoText="false"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="Mobile Number"
         android:inputType="phone"
+        android:maxLength="11"
+        android:singleLine="false"
         tools:layout_editor_absoluteX="41dp"
         tools:layout_editor_absoluteY="362dp" />
 

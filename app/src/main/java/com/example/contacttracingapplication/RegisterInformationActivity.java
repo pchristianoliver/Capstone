@@ -53,6 +53,85 @@ public class RegisterInformationActivity extends AppCompatActivity {
         barangaySpinner = findViewById(R.id.barangay);
         genderSpinner = findViewById(R.id.spinner);
 
+        initializeGetGender();
+        initializeCalendar();
+        initializeGetAddress();
+    }
+
+    private String openAndReadJsonFile(String fileName) throws IOException {
+        InputStream is = getAssets().open(fileName);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        String jsonString = new String(buffer, "UTF-8");
+        return jsonString;
+    }
+
+    private void initializeGetGender() {
+        //Adapter for gender
+        ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
+        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(adapterGender);
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    private void initializeCalendar() {
+        //this is for birthdate
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        birthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        RegisterInformationActivity.this, android.R.style.Theme_Translucent, setListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
+                datePickerDialog.show();
+
+            }
+        });
+
+        setListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                birthdate.setText(date);
+
+            }
+        };
+
+        birthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterInformationActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        String date = day + "/" + month + "/" + year;
+                        birthdate.setText(date);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+    }
+
+    private void initializeGetAddress() {
         try {
             //Reading region
             //Open and read json file
@@ -244,82 +323,6 @@ public class RegisterInformationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        initializeGetGender();
-        initializeCalendar();
-    }
-
-    private String openAndReadJsonFile(String fileName) throws IOException {
-        InputStream is = getAssets().open(fileName);
-        int size = is.available();
-        byte[] buffer = new byte[size];
-        is.read(buffer);
-        is.close();
-        String jsonString = new String(buffer, "UTF-8");
-        return jsonString;
-    }
-
-    private void initializeGetGender() {
-        //Adapter for gender
-        ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
-        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(adapterGender);
-        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    }
-
-    private void initializeCalendar() {
-        //this is for birthdate
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        birthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        RegisterInformationActivity.this, android.R.style.Theme_Translucent, setListener, year, month, day);
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
-                datePickerDialog.show();
-
-            }
-        });
-
-        setListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                birthdate.setText(date);
-
-            }
-        };
-
-        birthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterInformationActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        birthdate.setText(date);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-            }
-        });
     }
 
 }

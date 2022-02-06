@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterInformationActivity"
     android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
     android:layout_marginTop="50dp"
-    android:layout_marginBottom="40dp">
+    android:layout_marginRight="30dp"
+    android:layout_marginBottom="40dp"
+    tools:context=".RegisterInformationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,8 @@
             android:layout_height="36dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/input_field"
-            android:ems="10" />
+            android:ems="10"
+            android:autofillHints="name"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,10 +77,10 @@
             android:id="@+id/birthdate"
             android:layout_width="match_parent"
             android:layout_height="36dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/input_field"
             android:ems="10"
             android:hint="Select Date"
-            android:layout_marginTop="5dp"
             android:inputType="date" />
 
         <TextView
@@ -103,6 +104,7 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
+
         <Spinner
             android:id="@+id/region"
             android:layout_width="match_parent"
@@ -116,6 +118,7 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
+
         <Spinner
             android:id="@+id/province"
             android:layout_width="match_parent"
@@ -129,11 +132,13 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
+
         <Spinner
             android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:background="@drawable/input_field" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -141,6 +146,7 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
+
         <Spinner
             android:id="@+id/barangay"
             android:layout_width="match_parent"
@@ -148,7 +154,20 @@
             android:background="@drawable/input_field" />
 
 
+        <Button
+            android:id="@+id/proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="110dp"
+            android:layout_marginVertical="60dp"
+            android:background="@drawable/button"
+            android:text="Proceed" />
+
     </LinearLayout>
+
+
+
+
 
 
 </RelativeLayout>
