@@ -39,7 +39,7 @@ public class RegisterMobileNumberActivity extends AppCompatActivity {
                 if (check == true) {
                     startActivity(intent);
                 } else
-                    Toast.makeText(RegisterMobileNumberActivity.this, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
+                    mobileNumber.setError("Invalid Mobile Number");
 
 
             }
@@ -50,16 +50,8 @@ public class RegisterMobileNumberActivity extends AppCompatActivity {
 
     private boolean validateNumber(String inputNumber)
     {
-        if ( !inputNumber.matches("[9][0-9]{9}"))
-        {
-            mobileNumber.requestFocus();
-            mobileNumber.setError("Invalid Mobile Number");
-            return false;
-        }else{
-            return true;
-        }
-
-
+        if ( !inputNumber.matches("[9][0-9]{9}")) { return false; }
+        else{ return true; }
 
     }
 }

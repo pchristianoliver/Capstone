@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.contacttracingapplication.Models.BarangayModel;
 import com.example.contacttracingapplication.Models.CityModel;
@@ -24,7 +26,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,8 +35,9 @@ public class RegisterInformationActivity extends AppCompatActivity {
     private final String[] gender = {"Male", "Female"};
 
     private Spinner regionSpinner, provinceSpinner, citySpinner, barangaySpinner, genderSpinner;
-    private EditText firstName, lastName, middleName, birthdate;
+    private EditText firstNameEt, lastNameEt, middleNameEt, birthdateEt;
     private DatePickerDialog.OnDateSetListener setListener;
+    private Button proceedBtn;
 
 
     @Override
@@ -43,19 +45,75 @@ public class RegisterInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_information);
 
-        firstName = findViewById(R.id.firstname);
-        lastName = findViewById(R.id.lastname);
-        middleName = findViewById(R.id.middlename);
-        birthdate = findViewById(R.id.birthdate);
+        firstNameEt = findViewById(R.id.firstname);
+        lastNameEt = findViewById(R.id.lastname);
+        middleNameEt = findViewById(R.id.middlename);
+        birthdateEt = findViewById(R.id.birthdate);
         provinceSpinner = findViewById(R.id.province);
         regionSpinner = findViewById(R.id.region);
         citySpinner = findViewById(R.id.city);
         barangaySpinner = findViewById(R.id.barangay);
         genderSpinner = findViewById(R.id.spinner);
+        proceedBtn = findViewById(R.id.proceed);
 
         initializeGetGender();
         initializeCalendar();
         initializeGetAddress();
+
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String firstName = firstNameEt.getText().toString();
+                String lastName = lastNameEt.getText().toString();
+                String middleName = middleNameEt.getText().toString();
+                String birthdate = birthdateEt.getText().toString();
+
+                boolean checkInfo = validateInfo(firstName,lastName,middleName,birthdate);
+
+                if (checkInfo==true){
+                    Toast.makeText(getApplicationContext(),"Data is valid",Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Data not valid",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private Boolean validateInfo(String firstName, String lastName, String middleName, String birthdate){
+        if(firstName.length()==0){
+            firstNameEt.requestFocus();
+            firstNameEt.setError("Field cannot be empty.");
+            return false;
+        }
+        else if(!firstName.matches("[a-zA-Z]+([\\s][a-zA-Z]+)*")){
+            firstNameEt.requestFocus();
+            firstNameEt.setError("Enter only alphabetical character.");
+            return false;
+        }
+        else if(lastName.length()==0){
+            lastNameEt.requestFocus();
+            lastNameEt.setError("Field cannot be empty.");
+            return false;
+        }
+        else if(!lastName.matches("[a-zA-Z]+([\\s][a-zA-Z]+)*")){
+            lastNameEt.requestFocus();
+            lastNameEt.setError("Enter only alphabetical character.");
+            return false;
+        }
+        else if(!middleName.matches("^[a-zA-Z]+$|^$")) {
+            middleNameEt.requestFocus();
+            middleNameEt.setError("Enter only alphabetical character.");
+            return false;
+        }
+        else if (!birthdate.matches("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$")){
+            birthdateEt.requestFocus();
+            birthdateEt.setError("Enter only alphabetical character.");
+            return false;
+        }
+        else
+            return true;
     }
 
     private String openAndReadJsonFile(String fileName) throws IOException {
@@ -94,7 +152,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        birthdate.setOnClickListener(new View.OnClickListener() {
+        birthdateEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -110,12 +168,12 @@ public class RegisterInformationActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
-                birthdate.setText(date);
+                birthdateEt.setText(date);
 
             }
         };
 
-        birthdate.setOnClickListener(new View.OnClickListener() {
+        birthdateEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterInformationActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -123,7 +181,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month = month + 1;
                         String date = day + "/" + month + "/" + year;
-                        birthdate.setText(date);
+                        birthdateEt.setText(date);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
