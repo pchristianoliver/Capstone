@@ -42,7 +42,7 @@
         android:background="@drawable/button"
         android:text="Proceed"
         app:backgroundTint="@color/mclcolor"
-        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteX="100dp"
         tools:layout_editor_absoluteY="491dp" />
 
 
