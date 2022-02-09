@@ -109,7 +109,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
         }
         else if (!birthdate.matches("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$")){
             birthdateEt.requestFocus();
-            birthdateEt.setError("Enter only alphabetical character.");
+            birthdateEt.setError("Field cannot be empty.");
             return false;
         }
         else

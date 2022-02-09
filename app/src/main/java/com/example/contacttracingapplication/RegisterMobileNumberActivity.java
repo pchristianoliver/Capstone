@@ -34,7 +34,7 @@ public class RegisterMobileNumberActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegisterMobileNumberActivity.this, OTPActivity.class);
 
 
-                //funciton for validation (passed all parameters)
+                //function for validation (passed all parameters)
                 boolean check = validateNumber(inputNumber);
                 if (check == true) {
                     startActivity(intent);
