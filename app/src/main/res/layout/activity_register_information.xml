@@ -8,9 +8,9 @@
     tools:context=".RegisterInformationActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:scrollbarSize="6dip"
         tools:context=".MainActivity">
 
@@ -160,7 +160,7 @@
 
             <Button
                 android:id="@+id/proceed"
-                android:layout_width="wrap_content"
+                android:layout_width="113dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="110dp"

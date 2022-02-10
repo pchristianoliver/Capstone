@@ -3,9 +3,13 @@ package com.example.contacttracingapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +19,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.contacttracingapplication.Models.BarangayModel;
 import com.example.contacttracingapplication.Models.CityModel;
 import com.example.contacttracingapplication.Models.ProvinceModel;
@@ -26,9 +34,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
 
 public class RegisterInformationActivity extends AppCompatActivity {
 
@@ -39,11 +51,16 @@ public class RegisterInformationActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener setListener;
     private Button proceedBtn;
 
+    private String UserId;
+    private String API_URL = "https://mclogapi20220219222916.azurewebsites.net/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_information);
+
+        SharedPreferences storedData = getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
+        UserId = storedData.getString("userId", ""); // RETRIEVE VALUES FROM SHAREDPREFERENCES
 
         firstNameEt = findViewById(R.id.firstname);
         lastNameEt = findViewById(R.id.lastname);
@@ -70,15 +87,99 @@ public class RegisterInformationActivity extends AppCompatActivity {
 
                 boolean checkInfo = validateInfo(firstName,lastName,middleName,birthdate);
 
-                if (checkInfo==true){
-                    Toast.makeText(getApplicationContext(),"Data is valid",Toast.LENGTH_SHORT).show();
+                if (checkInfo == true){
+                    Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                    RegisterUserInformation();
                 }
                 else
                     Toast.makeText(getApplicationContext(),"Data not valid",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /*
+        FUNCTION FOR SAVING SURVEY RESPONSE
+        COPY THIS FUNCTION
+    */
+    private void UserHealthStatus(){
+        JSONObject userObject = new JSONObject();
+        SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+        String formattedDate = s.format(new Date());
+
+        try {
+            userObject.put("userId", UserId);
+            /*
+                DITO LAGAY NYO YUNG SAGOT NG USER SA SURVEY
+                CHECK  RegisterUserInformation() BELOW
+            */
+            userObject.put("symptomOne", "yes");
+            userObject.put("symptomTwo", "yes");
+            userObject.put("symptomThree", "yes");
+            userObject.put("symptomFour", "yes");
+            userObject.put("date", formattedDate);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                API_URL + "UserHealthStatus",
+                userObject,
+                response -> Log.e("Rest Response", response.toString()),
+                error -> Log.e("Rest Response", error.toString())
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
 
 
+    private void RegisterUserInformation(){
+        Spinner genderSpinner = (Spinner) findViewById(R.id.spinner);
+        Spinner provinceSpinner = findViewById(R.id.province);
+        Spinner regionSpinner = findViewById(R.id.region);
+        Spinner citySpinner = findViewById(R.id.city);
+        Spinner barangaySpinner = findViewById(R.id.barangay);
+
+        /*
+            LAGYAN NG INPUT YUNG:
+            *PHONENUMBER
+            *PASSWORD
+        */
+        JSONObject userObject = new JSONObject();
+        try {
+            userObject.put("firstName", firstNameEt.getText().toString());
+            userObject.put("lastName", lastNameEt.getText().toString());
+            userObject.put("middleName", middleNameEt.getText().toString());
+            userObject.put("birthDate", "23232");
+            userObject.put("gender", genderSpinner.getSelectedItem().toString());
+            userObject.put("province", provinceSpinner.getSelectedItem().toString());
+            userObject.put("region", regionSpinner.getSelectedItem().toString());
+            userObject.put("city", citySpinner.getSelectedItem().toString());
+            userObject.put("baranggay", barangaySpinner.getSelectedItem().toString());
+            userObject.put("password", "123232");
+            userObject.put("phoneNumber", "232323");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                API_URL + "Users",
+                userObject,
+                response -> Log.e("Rest Response", response.toString()),
+                error -> Log.e("Rest Response", error.toString())
+        );
+        requestQueue.add(jsonObjectRequest);
+
+        /*
+            WILL REDIRECT TO LOGIN ACTIVITY ONCE COMPLETED
+            # YOU CAN SET TOAST TO TELL THE ABOUT THE STATUS
+        */
+
+        Intent intent = new Intent(RegisterInformationActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     private Boolean validateInfo(String firstName, String lastName, String middleName, String birthdate){
@@ -139,7 +240,6 @@ public class RegisterInformationActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
