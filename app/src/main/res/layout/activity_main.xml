@@ -12,7 +12,7 @@
         android:id="@+id/mobileNumber"
         android:layout_width="303sp"
         android:layout_height="48dp"
-        android:layout_marginTop="584dp"
+        android:layout_marginTop="600dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="09xxxxxxxxx"
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button"
         android:text="Login"
         app:backgroundTint="@color/mclcolor"
@@ -50,13 +50,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.186" />
 
     <TextView
         android:id="@+id/txtDontHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="16dp"
         android:text="Don't have an account?"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,12 +66,13 @@
         android:id="@+id/txtRegisterHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:text="@string/register_here"
         android:textColor="@color/mclcolor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/txtDontHaveAccount"
         app:layout_constraintStart_toEndOf="@+id/txtDontHaveAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
