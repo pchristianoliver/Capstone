@@ -5,38 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/login_page">
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="223sp"
-        android:layout_marginTop="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/malayan" />
 
     <EditText
         android:id="@+id/mobileNumber"
         android:layout_width="303sp"
         android:layout_height="48dp"
-        android:layout_marginTop="68dp"
-        android:maxLength="11"
+        android:layout_marginTop="584dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="09xxxxxxxxx"
         android:inputType="phone"
+        android:maxLength="11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="303sp"
         android:layout_height="48dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="Password"
@@ -60,14 +50,14 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtDontHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
         android:text="Don't have an account?"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
@@ -76,12 +66,12 @@
         android:id="@+id/txtRegisterHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:text="@string/register_here"
         android:textColor="@color/mclcolor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintHorizontal_bias="0.201"
         app:layout_constraintLeft_toLeftOf="@+id/txtDontHaveAccount"
         app:layout_constraintStart_toEndOf="@+id/txtDontHaveAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
