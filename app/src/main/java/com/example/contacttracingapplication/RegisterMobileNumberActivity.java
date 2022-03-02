@@ -31,12 +31,13 @@ public class RegisterMobileNumberActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String inputNumber = mobileNumber.getText().toString();
-                Intent intent = new Intent(RegisterMobileNumberActivity.this, OTPActivity.class);
+
 
 
                 //function for validation (passed all parameters)
                 boolean check = validateNumber(inputNumber);
-                if (check == true) {
+                if (check) {
+                    Intent intent = new Intent(RegisterMobileNumberActivity.this, OTPActivity.class);
                     startActivity(intent);
                 } else
                     mobileNumber.setError("Invalid Mobile Number");

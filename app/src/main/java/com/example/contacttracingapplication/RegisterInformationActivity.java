@@ -178,7 +178,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
             # YOU CAN SET TOAST TO TELL THE ABOUT THE STATUS
         */
 
-        Intent intent = new Intent(RegisterInformationActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegisterInformationActivity.this, RegisterPasswordActivity.class);
         startActivity(intent);
     }
 
