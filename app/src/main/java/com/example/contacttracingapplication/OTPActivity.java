@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class OTPActivity extends AppCompatActivity {
 
@@ -20,6 +23,19 @@ public class OTPActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpactivity);
+
+        Intent intent=getIntent();
+        /*
+            [sixDigitCode] ito yung sesend sa user
+        */
+        ArrayList<Integer> sixDigitCode = intent.getIntegerArrayListExtra("otp");
+
+        // TO CHECK LANG YUNG GENERATED 6 DIGIT CODE
+        //  CHECK [Log.e] for OUTPUT
+
+        for(Integer digit: sixDigitCode) {
+            Log.e("_", String.valueOf(digit));
+        }
 
         proceedBtn = findViewById(R.id.proceed);
         otp1 = findViewById(R.id.edDigit1);
@@ -148,12 +164,11 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (otp1.getText().toString().equals("0") && otp2.getText().toString().equals("0") && otp3.getText().toString().equals("0") && otp4.getText().toString().equals("0") && otp5.getText().toString().equals("0") && otp6.getText().toString().equals("0"))
+                if (otp1.getText().toString().equals(sixDigitCode.get(0).toString()) && otp2.getText().toString().equals(sixDigitCode.get(1).toString()) && otp3.getText().toString().equals(sixDigitCode.get(2).toString()) && otp4.getText().toString().equals(sixDigitCode.get(3).toString()) && otp5.getText().toString().equals(sixDigitCode.get(4).toString()) && otp6.getText().toString().equals(sixDigitCode.get(5).toString()))
                 {
                     Toast.makeText(OTPActivity.this, "ang galing mo pia", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
                     startActivity(intent);
-
                 }
                 else {
                     Toast.makeText(OTPActivity.this, "mali ka kapatid", Toast.LENGTH_SHORT).show();
