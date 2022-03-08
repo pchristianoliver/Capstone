@@ -156,13 +156,12 @@ public class RegisterInformationActivity extends AppCompatActivity {
             userObject.put("region", regionSpinner.getSelectedItem().toString());
             userObject.put("city", citySpinner.getSelectedItem().toString());
             userObject.put("baranggay", barangaySpinner.getSelectedItem().toString());
-            userObject.put("password", "123232");
-            userObject.put("phoneNumber", "232323");
+            userObject.put("phoneNumber", getIntent().getStringExtra("MobileNumber"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
+        /*
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
@@ -172,6 +171,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
                 error -> Log.e("Rest Response", error.toString())
         );
         requestQueue.add(jsonObjectRequest);
+        */
 
         /*
             WILL REDIRECT TO LOGIN ACTIVITY ONCE COMPLETED
@@ -179,6 +179,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
         */
 
         Intent intent = new Intent(RegisterInformationActivity.this, RegisterPasswordActivity.class);
+        intent.putExtra("UserInformation", userObject.toString());
         startActivity(intent);
     }
 

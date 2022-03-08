@@ -72,7 +72,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     /* RETRIEVE USER'S NAME */
     private void GetUsersName(String id) {
-        String API_URL = "https://mclogapi20220219222916.azurewebsites.net/api/Users/" + id;
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + id;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

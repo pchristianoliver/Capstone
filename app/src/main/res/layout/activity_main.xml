@@ -12,7 +12,7 @@
         android:id="@+id/mobileNumber"
         android:layout_width="303sp"
         android:layout_height="48dp"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="500dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="09xxxxxxxxx"
