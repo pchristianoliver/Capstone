@@ -59,6 +59,8 @@ public class RegisterInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_information);
 
+        Log.e("onCreate: ", getIntent().getStringExtra("MobileNumber"));
+
         SharedPreferences storedData = getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         UserId = storedData.getString("userId", ""); // RETRIEVE VALUES FROM SHAREDPREFERENCES
 
@@ -161,23 +163,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                API_URL + "Users",
-                userObject,
-                response -> Log.e("Rest Response", response.toString()),
-                error -> Log.e("Rest Response", error.toString())
-        );
-        requestQueue.add(jsonObjectRequest);
-        */
-
-        /*
-            WILL REDIRECT TO LOGIN ACTIVITY ONCE COMPLETED
-            # YOU CAN SET TOAST TO TELL THE ABOUT THE STATUS
-        */
-
+        Log.e("Register ", userObject.toString());
         Intent intent = new Intent(RegisterInformationActivity.this, RegisterPasswordActivity.class);
         intent.putExtra("UserInformation", userObject.toString());
         startActivity(intent);

@@ -50,6 +50,7 @@ public class RegisterMobileNumberActivity extends AppCompatActivity {
                 if (check) {
                     Intent intent = new Intent(RegisterMobileNumberActivity.this, OTPActivity.class);
                     intent.putIntegerArrayListExtra("otp", (ArrayList<Integer>) generateSixDigitCode());
+                    intent.putExtra("MobileNumber", mobileNumber.getText().toString());
                     startActivity(intent);
                 } else
                     mobileNumber.setError("Invalid Mobile Number");
