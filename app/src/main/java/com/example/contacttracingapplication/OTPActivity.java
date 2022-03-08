@@ -33,9 +33,11 @@ public class OTPActivity extends AppCompatActivity {
         // TO CHECK LANG YUNG GENERATED 6 DIGIT CODE
         //  CHECK [Log.e] for OUTPUT
 
+        String code = "";
         for(Integer digit: sixDigitCode) {
-            Log.e("_", String.valueOf(digit));
+           code += String.valueOf(digit);
         }
+        Log.e("_", code);
 
         proceedBtn = findViewById(R.id.proceed);
         otp1 = findViewById(R.id.edDigit1);
@@ -168,6 +170,7 @@ public class OTPActivity extends AppCompatActivity {
                 {
                     Toast.makeText(OTPActivity.this, "ang galing mo pia", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
+                    intent.putExtra("MobileNumber", getIntent().getStringExtra("MobileNumber"));
                     startActivity(intent);
                 }
                 else {
@@ -182,6 +185,7 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
+                intent.putExtra("MobileNumber", getIntent().getStringExtra("MobileNumber"));
                 startActivity(intent);
             }
         });
