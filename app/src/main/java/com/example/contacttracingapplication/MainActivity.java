@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void AuthenticateUser() {
         JSONObject credentialObject = new JSONObject();
-        String API_URL = "https://mclogapi20220219222916.azurewebsites.net/api/Authentication";
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Authentication";
         try {
             credentialObject.put("mobileNumber", etUsername.getText().toString());
             credentialObject.put("password", etPassword.getText().toString());

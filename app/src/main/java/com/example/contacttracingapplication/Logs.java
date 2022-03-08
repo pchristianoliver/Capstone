@@ -37,7 +37,7 @@ public class Logs extends AppCompatActivity {
     }
 
     private void GetUserLog(String userId) {
-        String API_URL = "https://mclogapi20220219222916.azurewebsites.net/api/ActivityLogs/" + userId;
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/ActivityLogs/" + userId;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 Request.Method.GET,
