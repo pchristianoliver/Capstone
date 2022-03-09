@@ -2,6 +2,9 @@ package com.example.contacttracingapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etPassword, etUsername;
     private TextView txtRegister;
     SharedPreferences storedData;
+    BottomNavigationView bottomNavigationView;
 
     @Override
 
@@ -45,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.mobileNumber);
         etPassword = findViewById(R.id.editTextTextPassword);
         txtRegister = findViewById(R.id.txtRegisterHere);
-
         storedData = getSharedPreferences("storedData", Context.MODE_PRIVATE);
 
         txtRegister.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void RedirectToMainPage(@NonNull String message) {
-        if(message.length() > 5) {
+        if (message.length() > 5) {
             Toast.makeText(getApplicationContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
             return;
         } else {

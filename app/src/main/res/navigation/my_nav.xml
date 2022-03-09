@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mainMenuActivity2">
+    <activity
+        android:id="@+id/logs"
+        android:name="com.example.contacttracingapplication.Logs"
+        android:label="activity_logs"
+        tools:layout="@layout/activity_logs" />
+    <activity
+        android:id="@+id/mainMenuActivity2"
+        android:name="com.example.contacttracingapplication.MainMenuActivity"
+        android:label="activity_main_menu"
+        tools:layout="@layout/activity_main_menu" />
+</navigation>

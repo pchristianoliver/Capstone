@@ -8,44 +8,39 @@
     android:orientation="vertical"
     tools:context=".MainMenuActivity">
 
+
     <ImageView
         android:id="@+id/qrCodeView"
         android:layout_width="339dp"
         android:layout_height="318dp"
+        android:layout_marginBottom="344dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qrCodeView2"
+        app:layout_constraintVertical_bias="0.34"
         app:srcCompat="@color/lighgray" />
-
-    <ImageView
-        android:id="@+id/qrCodeView2"
-        android:layout_width="412dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/mclcolor" />
 
     <TextView
         android:id="@+id/UserCompleteName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="TextView"
         android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/qrCodeView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qrCodeView2"
-        app:layout_constraintVertical_bias="0.895" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="407dp"
-        android:layout_height="95dp"
-        android:foreground="@color/cardview_light_background"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qrCodeView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:menu="@menu/bottom_menu"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
