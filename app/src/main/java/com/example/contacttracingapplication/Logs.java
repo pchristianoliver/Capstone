@@ -34,6 +34,7 @@ public class Logs extends AppCompatActivity {
         SharedPreferences storedData = getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         String UserId = storedData.getString("userId", "");
         GetUserLog(UserId);
+        // gg
     }
 
     private void GetUserLog(String userId) {
