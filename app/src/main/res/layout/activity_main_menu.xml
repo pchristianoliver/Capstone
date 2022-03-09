@@ -13,21 +13,20 @@
         android:id="@+id/qrCodeView"
         android:layout_width="339dp"
         android:layout_height="318dp"
-        android:layout_marginBottom="344dp"
+        android:layout_marginBottom="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.34"
         app:srcCompat="@color/lighgray" />
 
     <TextView
         android:id="@+id/UserCompleteName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="528dp"
         android:text="TextView"
         android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/qrCodeView"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
@@ -41,6 +40,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="166dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/button"
+        android:text="Generate QR"
+        app:backgroundTint="@color/mclcolor"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/temperature"
+        android:layout_width="191dp"
+        android:layout_height="48dp"
+        android:background="@drawable/input_field"
+        android:ems="10"
+        android:hint="Enter Temperature"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrCodeView" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
