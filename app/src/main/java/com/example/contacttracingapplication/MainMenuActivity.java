@@ -10,7 +10,9 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +33,8 @@ public class MainMenuActivity extends AppCompatActivity {
     ImageView qrCodeView;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
-
+    Button button;
+    TextView temperature;
     private TextView userCompleteName;
 
     @Override
@@ -40,11 +43,19 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         qrCodeView = findViewById(R.id.qrCodeView);
         userCompleteName = findViewById(R.id.UserCompleteName);
-
+        temperature = findViewById(R.id.temperature);
+        button = findViewById(R.id.button);
         SharedPreferences storedData = getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         String UserId = storedData.getString("userId", ""); // RETRIEVE VALUES FROM SHAREDPREFERENCES
 
-        GenerateQRCode(UserId);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GenerateQRCode(UserId);
+            }
+        });
+
+
         GetUsersName(UserId);
     }
 
@@ -61,7 +72,15 @@ public class MainMenuActivity extends AppCompatActivity {
         int dimen = width < height ? width : height;
         dimen = dimen * 3 / 4;
 
-        qrgEncoder = new QRGEncoder(userId, null, QRGContents.Type.TEXT, dimen);
+        JSONObject userObject = new JSONObject();
+        try {
+            userObject.put("userId", userId);
+            userObject.put("temp", temperature.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        qrgEncoder = new QRGEncoder(userObject.toString(), null, QRGContents.Type.TEXT, dimen);
         try {
             bitmap = qrgEncoder.encodeAsBitmap();
             qrCodeView.setImageBitmap(bitmap);
