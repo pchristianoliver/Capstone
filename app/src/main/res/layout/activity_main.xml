@@ -12,7 +12,7 @@
         android:id="@+id/mobileNumber"
         android:layout_width="303sp"
         android:layout_height="48dp"
-        android:layout_marginTop="612dp"
+        android:layout_marginTop="508dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="9xxxxxxxxx"
@@ -40,13 +40,13 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:background="@drawable/button"
         android:text="Login"
         app:backgroundTint="@color/mclcolor"
-        app:layout_constraintBottom_toTopOf="@+id/mobileNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <TextView
         android:id="@+id/txtDontHaveAccount"

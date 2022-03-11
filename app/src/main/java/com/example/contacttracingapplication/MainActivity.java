@@ -2,9 +2,6 @@ package com.example.contacttracingapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -63,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AuthenticateUser();
+                //AuthenticateUser();
+                Intent intent = new Intent(MainActivity.this, MainActivityWithNavigation.class);
+                startActivity(intent);
             }
         });
     }

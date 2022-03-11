@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContactTracingApplication">
         <activity
+            android:name=".MainActivityWithNavigation"
+            android:exported="false"
+            android:label="@string/title_activity_main_with_navigation" />
+        <activity
             android:name=".RegisterPasswordActivity"
             android:exported="true" />
         <activity
