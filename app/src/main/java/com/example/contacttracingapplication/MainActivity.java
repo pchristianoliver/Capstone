@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText etPassword, etUsername;
     private TextView txtRegister;
     SharedPreferences storedData;
-    BottomNavigationView bottomNavigationView;
 
     @Override
 
@@ -60,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // AuthenticateUser();
-                Intent intent = new Intent(MainActivity.this, MainActivityWithNavigation.class);
-                startActivity(intent);
+                AuthenticateUser();
             }
         });
     }

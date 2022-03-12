@@ -115,7 +115,6 @@ public class HomeFragment extends Fragment {
 
     public void GetUserFullName() {
         String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + userId;
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,

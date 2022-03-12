@@ -56,7 +56,6 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("Register: ", userObject.toString());
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -64,7 +63,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 API_URL + "Users",
                 userObject,
                 response -> Log.e("Rest Response", "Success"),
-                error -> Log.e("Rest Response", "Failed")
+                error -> Log.e("Rest Response", error.toString())
         );
 
         requestQueue.add(jsonObjectRequest);

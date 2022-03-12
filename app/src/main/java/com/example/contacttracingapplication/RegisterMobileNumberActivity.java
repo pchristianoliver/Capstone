@@ -54,8 +54,6 @@ public class RegisterMobileNumberActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else
                     mobileNumber.setError("Invalid Mobile Number");
-
-
             }
         });
 
