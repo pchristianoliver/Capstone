@@ -19,9 +19,6 @@
             android:name=".RegisterPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".MainMenuActivity"
-            android:exported="false" />
-        <activity
             android:name=".RegisterInformationActivity"
             android:exported="true" />
         <activity

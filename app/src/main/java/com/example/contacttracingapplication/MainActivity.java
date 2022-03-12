@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //AuthenticateUser();
+                // AuthenticateUser();
                 Intent intent = new Intent(MainActivity.this, MainActivityWithNavigation.class);
                 startActivity(intent);
             }
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+            Intent intent = new Intent(MainActivity.this, MainActivityWithNavigation.class);
             // ===================================================================
             /*
                 SAVE DATA WHICH ALLOWS ACTIVITIES TO ACCESS AND REUSE VALUES
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("userId", message);
             editor.commit();
             // ===================================================================
-
             startActivity(intent);
+            finishAfterTransition();
         }
     }
 }

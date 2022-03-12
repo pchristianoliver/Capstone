@@ -3,7 +3,6 @@ package com.example.contacttracingapplication.ui.home;
 import static android.content.Context.WINDOW_SERVICE;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -58,25 +57,23 @@ public class HomeFragment extends Fragment {
         temperature = root.findViewById(R.id.user_temperature);
         generateQR_button = root.findViewById(R.id.generateqr_btn);
         qrView = root.findViewById(R.id.qrView);
+        return root;
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
         storedData = getActivity().getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
 
+        GetUserFullName();
+
         generateQR_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 GenerateQRCode();
             }
         });
-        GetUserFullName();
-
-        if(storedData.getString("name", "") != "" && storedData.getString("temperature", "") != "") {
-            username.setText(storedData.getString("name", ""));
-            temperature.setText(storedData.getString("temperature", ""));
-            GenerateQRCode();
-        }
-
-        return root;
     }
 
     @Override
@@ -86,7 +83,6 @@ public class HomeFragment extends Fragment {
     }
 
     public void GenerateQRCode() {
-        Log.e("GenerateQRCode: ", "pota");
         WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         Point point = new Point();
@@ -118,7 +114,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void GetUserFullName() {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + 2;
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + userId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -128,8 +124,9 @@ public class HomeFragment extends Fragment {
                 response -> {
                     try {
                         username.setText(response.get("firstName").toString() +" "+ response.get("lastName").toString());
+                        Log.e("GetUserFullName: ", response.get("firstName").toString());
                         SharedPreferences.Editor editor = storedData.edit();
-                        editor.putString("userId", username.getText().toString());
+                        editor.putString("name", username.getText().toString());
                         editor.commit();
                     } catch (JSONException e) {
                         e.printStackTrace();
