@@ -3,6 +3,7 @@ package com.example.contacttracingapplication.ui.home;
 import static android.content.Context.WINDOW_SERVICE;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -25,7 +26,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.contacttracingapplication.MainActivityWithNavigation;
 import com.example.contacttracingapplication.R;
+import com.example.contacttracingapplication.SymptomActivity;
 import com.example.contacttracingapplication.databinding.FragmentHomeBinding;
 import com.google.zxing.WriterException;
 
@@ -40,7 +43,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     TextView username, temperature;
-    Button generateQR_button;
+    Button generateQR_button, healthCheck_button;
     QRGEncoder qrgEncoder;
     ImageView qrView;
     Bitmap bitmap;
@@ -50,15 +53,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         username = root.findViewById(R.id.user_name);
         temperature = root.findViewById(R.id.user_temperature);
         generateQR_button = root.findViewById(R.id.generateqr_btn);
+        healthCheck_button = root.findViewById(R.id.healthcheck_btn);
         qrView = root.findViewById(R.id.qrView);
         return root;
+
+
     }
+
+
 
     @Override
     public void onStart() {
@@ -140,4 +150,5 @@ public class HomeFragment extends Fragment {
         ));
         requestQueue.add(jsonObjectRequest);
     }
+
 }

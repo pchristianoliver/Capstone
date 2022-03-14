@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_main.xml" value="0.371875" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_main_menu.xml" value="0.371875" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_main_with_navigation.xml" value="0.25" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_mobilenumber.xml" value="0.30364583333333334" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_symptom.xml" value="0.25" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_symptoms.xml" value="0.20885416666666667" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/menu/bottom_menu.xml" value="0.371875" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/menu/bottom_nav_menu.xml" value="0.371875" />
         <entry key="..\:/MCL/CAPSTONE/ContactTracingApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19316239316239317" />
         <entry key="..\:/MCL/CAPSTONE/ContactTracingApplication/app/src/main/res/drawable/button.xml" value="0.225" />
         <entry key="..\:/MCL/CAPSTONE/ContactTracingApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19316239316239317" />

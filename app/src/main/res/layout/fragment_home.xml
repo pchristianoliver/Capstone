@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818" />
+        app:layout_constraintVertical_bias="0.234" />
 
     <ImageView
         android:id="@+id/qrView"
@@ -43,37 +43,52 @@
 
     <EditText
         android:id="@+id/user_temperature"
-        android:layout_width="214dp"
-        android:layout_height="50dp"
+        android:layout_width="156dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/input_field"
         android:ems="10"
-        android:hint="Enter temperature"
-        android:textColorHint="@color/black"
+        android:hint="Enter Temp"
         android:inputType="numberDecimal"
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/healthcheck_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/qrView"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/generateqr_btn"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="00dp"
+        android:background="@color/mclcolor"
         android:padding="15dp"
         android:text="Generate QR"
-        android:background="@color/mclcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.956" />
+        app:layout_constraintVertical_bias="0.954" />
+
+    <Button
+        android:id="@+id/healthcheck_btn"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="16dp"
+        android:background="#38AA51"
+        android:text="Health Check"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/generateqr_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
