@@ -50,4 +50,16 @@
         android:layout_height="wrap_content"
         android:text="Lost of Smell and Tase"/>
 
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:text="Submit"
+        app:backgroundTint="@color/mclcolor"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="491dp" />
+
 </LinearLayout>

@@ -16,4 +16,13 @@
         <item name="android:statusBarColor">@color/mclcolor</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.ContactTracingApplication.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ContactTracingApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ContactTracingApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

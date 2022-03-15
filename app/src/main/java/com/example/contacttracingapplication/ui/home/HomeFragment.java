@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -63,11 +62,12 @@ public class HomeFragment extends Fragment {
         generateQR_button = root.findViewById(R.id.generateqr_btn);
         healthCheck_button = root.findViewById(R.id.healthcheck_btn);
         qrView = root.findViewById(R.id.qrView);
+
+
         return root;
 
 
     }
-
 
 
     @Override
@@ -82,6 +82,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 GenerateQRCode();
+            }
+        });
+
+        healthCheck_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(view.getContext(),
+                        SymptomActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -132,7 +142,7 @@ public class HomeFragment extends Fragment {
                 null,
                 response -> {
                     try {
-                        username.setText(response.get("firstName").toString() +" "+ response.get("lastName").toString());
+                        username.setText(response.get("firstName").toString() + " " + response.get("lastName").toString());
                         Log.e("GetUserFullName: ", response.get("firstName").toString());
                         SharedPreferences.Editor editor = storedData.edit();
                         editor.putString("name", username.getText().toString());
@@ -150,5 +160,6 @@ public class HomeFragment extends Fragment {
         ));
         requestQueue.add(jsonObjectRequest);
     }
+
 
 }

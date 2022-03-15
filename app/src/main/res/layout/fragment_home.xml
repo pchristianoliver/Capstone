@@ -82,7 +82,7 @@
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_marginBottom="16dp"
-        android:background="#38AA51"
+        android:backgroundTint="#19A558"
         android:text="Health Check"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/generateqr_btn"
