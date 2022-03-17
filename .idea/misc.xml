@@ -39,8 +39,10 @@
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_main_menu.xml" value="0.33" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_main_with_navigation.xml" value="0.16" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_otpactivity.xml" value="0.2" />
-        <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_symptom.xml" value="0.22" />
+        <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/fragment_log.xml" value="0.25" />
+        <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/log_item.xml" value="0.16032608695652173" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/sample_log.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/menu/bottom_menu.xml" value="0.18" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
