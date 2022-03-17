@@ -1,15 +1,31 @@
 package com.example.contacttracingapplication.ui.log;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.contacttracingapplication.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +65,9 @@ public class LogFragment extends Fragment {
         return fragment;
     }
 
+    SharedPreferences storedData;
+    String userId;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +75,9 @@ public class LogFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        storedData = getActivity().getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
+        userId = storedData.getString("userId", "");
+        GetUserLog();
     }
 
     @Override
@@ -64,5 +85,64 @@ public class LogFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_log, container, false);
+    }
+
+    String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+    JSONArray array = new JSONArray();
+    protected void GetUserLog() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                API_URL + "ActivityLogs/" + userId,
+                null,
+                response -> {
+                    try {
+                        array = new JSONArray(response.toString());
+                        ExtractLog();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("Rest_Error", error.toString())
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void ExtractLog() {
+        for(int i = 0; i < array.length(); i++) {
+            try {
+                GetBuildingName(array.getJSONObject(i).getString("buildingId"), array.getJSONObject(i).getString("activityDate"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    List<Object> activityList = new ArrayList<Object>();
+    public void GetBuildingName(String buildingId, String activityDate) {
+        List<String> listObject = new ArrayList<String>();
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                API_URL + "Buildings/" + buildingId,
+                null,
+                response -> {
+                    try {
+                        listObject.add(response.get("buildingName").toString());
+                        listObject.add(activityDate);
+                        activityList.add(listObject);
+                        Log.e("GetBuildingName: ", activityList.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("building", error.toString())
+        );
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                1000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        requestQueue.add(jsonObjectRequest);
     }
 }

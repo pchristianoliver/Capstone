@@ -26,7 +26,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.contacttracingapplication.MainActivityWithNavigation;
 import com.example.contacttracingapplication.R;
 import com.example.contacttracingapplication.SymptomActivity;
 import com.example.contacttracingapplication.databinding.FragmentHomeBinding;
@@ -34,6 +33,8 @@ import com.google.zxing.WriterException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -52,8 +53,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -63,10 +62,7 @@ public class HomeFragment extends Fragment {
         healthCheck_button = root.findViewById(R.id.healthcheck_btn);
         qrView = root.findViewById(R.id.qrView);
 
-
         return root;
-
-
     }
 
 
@@ -75,15 +71,14 @@ public class HomeFragment extends Fragment {
         super.onStart();
         storedData = getActivity().getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
-
         GetUserFullName();
 
-        generateQR_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GenerateQRCode();
-            }
-        });
+        if(storedData.getString("temperature", "") != "") {
+            GenerateQRCode();
+        }
+
+
+        GetUserHealthStatusId();
 
         healthCheck_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +87,18 @@ public class HomeFragment extends Fragment {
                 i = new Intent(view.getContext(),
                         SymptomActivity.class);
                 startActivity(i);
+            }
+        });
+
+        generateQR_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GenerateQRCode();
+                if(userHealthStatusId == "") {
+                    SaveUserHealthStatus();
+                } else {
+                    UpdateUserHealthStatus();
+                }
             }
         });
     }
@@ -133,17 +140,16 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
     public void GetUserFullName() {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + userId;
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                API_URL,
+                API_URL + "Users/" + userId,
                 null,
                 response -> {
                     try {
                         username.setText(response.get("firstName").toString() + " " + response.get("lastName").toString());
-                        Log.e("GetUserFullName: ", response.get("firstName").toString());
                         SharedPreferences.Editor editor = storedData.edit();
                         editor.putString("name", username.getText().toString());
                         editor.commit();
@@ -161,5 +167,74 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
+    private void SaveUserHealthStatus(){
+        JSONObject userObject = new JSONObject();
+        try {
+            userObject.put("dateTime", "2018-03-29T13:34:00.000");
+            userObject.put("userId", userId);
+            userObject.put("temperature", temperature.getText());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                API_URL + "UserHealthStatus",
+                userObject,
+                response -> Log.e("Save", "Success"),
+                error -> Log.e("Save", error.toString())
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void UpdateUserHealthStatus(){
+        GetUserHealthStatusId();
+        JSONObject userObject = new JSONObject();
+        try {
+            userObject.put("id", userHealthStatusId);
+            userObject.put("dateTime", "2018-03-29T13:34:00.000");
+            userObject.put("userId", userId);
+            userObject.put("temperature", Double.parseDouble(temperature.getText().toString()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                API_URL + "UserHealthStatus/" + userHealthStatusId,
+                userObject,
+                response -> Log.e("Update", "Success"),
+                error -> Log.e("Update", error.toString())
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    String userHealthStatusId;
+    private void GetUserHealthStatusId() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                API_URL + "UserHealthStatus/" + userId,
+                null,
+                response -> {
+                    try {
+                        SharedPreferences.Editor editor = storedData.edit();
+                        userHealthStatusId = response.get("id").toString();
+                        editor.putString("userHealthStatus", response.get("id").toString());
+                        editor.commit();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("Rest_Response", error.toString())
+        );
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                1000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        requestQueue.add(jsonObjectRequest);
+    }
 }

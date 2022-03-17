@@ -99,4 +99,12 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="feverCheckbox">feverCheckbox</string>
+    <string name="dryCough">dryCoughCheckbox</string>
+    <string name="fatigue">fatigueCheckbox</string>
+    <string name="aches">acheCheckbox</string>
+    <string name="runnyNose">runnyNoseCheckbox</string>
+    <string name="diarrhea">diarrheaCheckbox</string>
+    <string name="headAche">headAcheCheckbox</string>
+    <string name="lostOfSmell">lostOfSmellCheckbox</string>
 </resources>
