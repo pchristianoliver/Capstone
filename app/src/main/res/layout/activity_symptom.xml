@@ -9,73 +9,10 @@
     android:orientation="vertical"
     android:gravity="">
 
-    <CheckBox
-        android:id="@+id/feverCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fever"/>
-    <CheckBox
-        android:id="@+id/dryCoughCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dry Cough"/>
-    <CheckBox
-        android:id="@+id/fatigueCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fatigue"/>
-
-    <CheckBox
-        android:id="@+id/acheCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aches and Pains" />
-
-    <CheckBox
-        android:id="@+id/runnyNoseCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Runny Nose" />
-
-    <CheckBox
-        android:id="@+id/soreThroatCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sore Throat" />
-
-    <CheckBox
-        android:id="@+id/shortnessOfBreathCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shortness of Breath" />
-
-    <CheckBox
-        android:id="@+id/diarrheaCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Diarrhea" />
-
-    <CheckBox
-        android:id="@+id/headAcheCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Headache" />
-
-    <CheckBox
-        android:id="@+id/lostOfSmellCheckbox"
-        android:onClick="SymptomCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lost of Smell and Tase" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/symptomsRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="450dp" />
 
     <Button
         android:id="@+id/submitBtn"
