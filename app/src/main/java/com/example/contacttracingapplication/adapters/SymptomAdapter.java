@@ -40,7 +40,7 @@ public class SymptomAdapter extends RecyclerView.Adapter<SymptomAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private CheckBox fever;
+        private TextView fever;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

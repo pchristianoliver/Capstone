@@ -51,6 +51,11 @@ public class SymptomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_symptom);
 
         symptoms_recyclerView = findViewById(R.id.symptomsRecycleView);
+
+        SymptomAdapter adapter = new SymptomAdapter(title);
+        symptoms_recyclerView.setAdapter(adapter);
+        symptoms_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         submit_button = findViewById(R.id.submitBtn);
         cancel_btn = findViewById(R.id.cancel_btn);
 
@@ -78,9 +83,9 @@ public class SymptomActivity extends AppCompatActivity {
             }
         });
 
-        SymptomAdapter adapter = new SymptomAdapter(title);
-        symptoms_recyclerView.setAdapter(adapter);
-        symptoms_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //SymptomAdapter adapter = new SymptomAdapter(title);
+       // symptoms_recyclerView.setAdapter(adapter);
+       // symptoms_recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void SymptomCheck(View v) {

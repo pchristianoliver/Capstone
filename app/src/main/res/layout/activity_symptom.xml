@@ -4,10 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SymptomActivity"
-    android:padding="50dp"
+    android:gravity=""
     android:orientation="vertical"
-    android:gravity="">
+    android:padding="50dp"
+    tools:context=".SymptomActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Do you feel any symptoms?"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/symptomsRecycleView"
@@ -20,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/button"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:text="Submit"
         app:backgroundTint="@color/mclcolor"
         tools:layout_editor_absoluteX="100dp"
@@ -31,8 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/lighgray"
-        android:gravity="center"
+        android:background="@drawable/button"
+        android:layout_gravity="center"
         android:text="Cancel"
         android:textColor="#000000"
         app:backgroundTint="@color/lighgray"
