@@ -7,15 +7,18 @@
     android:gravity=""
     android:orientation="vertical"
     android:padding="50dp"
-    tools:context=".SymptomActivity">
+    tools:context=".SymptomActivity"
+    android:scrollbarStyle="insideInset">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Do you feel any symptoms?"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -36,11 +36,14 @@ public class SymptomActivity extends AppCompatActivity {
     RecyclerView symptoms_recyclerView;
 
     String[] title = {
-            "Abundance",
-            "Anxiety",
-            "Bruxism",
-            "Discipline",
-            "Drug Addiction"
+            "Fever",
+            "Dry Cough",
+            "Fatigue",
+            "Aches and Pains",
+            "Runny Nose",
+            "Sore Throat",
+            "Shortness of Breath",
+            "Diarrhea"
     };
 
 

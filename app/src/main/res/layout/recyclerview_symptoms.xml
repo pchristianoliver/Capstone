@@ -3,25 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
     android:orientation="vertical"
+    tools:context=".SymptomActivity"
+    android:layout_margin="3dp"
+    android:background="@drawable/highlight">
 
-    tools:context=".SymptomActivity">
-
-
-
-    <RelativeLayout
+    <CheckBox
+        android:id="@+id/feverCheckbox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="40dp"
+        android:onClick="SymptomCheck"
+        android:text="Symptoms"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
-        <CheckBox
-            android:id="@+id/feverCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:onClick="SymptomCheck"
-            android:text="Fever" />
-
-    </RelativeLayout>
 
 </LinearLayout>

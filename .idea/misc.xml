@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/drawable/button.xml" value="0.1635" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/drawable/highlight.xml" value="0.1635" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_main.xml" value="0.371875" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_main_menu.xml" value="0.371875" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_main_with_navigation.xml" value="0.25" />
@@ -13,7 +15,8 @@
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/activity_symtom.xml" value="0.3578125" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/content_scrolling.xml" value="0.30364583333333334" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/fragment_home.xml" value="0.3579849946409432" />
-        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/recyclerview_symptoms.xml" value="0.3223958333333333" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/fragment_log.xml" value="0.29322916666666665" />
+        <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/layout/recyclerview_symptoms.xml" value="0.33" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/menu/bottom_menu.xml" value="0.371875" />
         <entry key="..\:/MCL/CAPSTONE/Capstone/app/src/main/res/menu/bottom_nav_menu.xml" value="0.371875" />
         <entry key="..\:/MCL/CAPSTONE/ContactTracingApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19316239316239317" />
@@ -34,8 +37,6 @@
         <entry key="..\:/MCL/CAPSTONE/ContactTracingApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.19316239316239317" />
         <entry key="..\:/Users/Franz/StudioProjects/Capstone/app/src/main/res/layout/activity_main_menu.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/Franz/StudioProjects/Capstone/app/src/main/res/layout/activity_main_with_navigation.xml" value="0.25" />
-        <entry key="..\:/Users/Franz/StudioProjects/Testing/app/src/main/res/layout/activity_symptom.xml" value="0.3625" />
-        <entry key="..\:/Users/Franz/StudioProjects/Testing/app/src/main/res/layout/recyclerview_symptoms.xml" value="0.33" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_bobo.xml" value="0.18" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_logs.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/TARTS/Capstone/app/src/main/res/layout/activity_main.xml" value="0.18" />
