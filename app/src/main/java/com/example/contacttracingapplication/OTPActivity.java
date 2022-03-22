@@ -258,6 +258,7 @@ public class OTPActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class);
+                        intent.putExtra("MobileNumber", "+63" + getIntent().getStringExtra("MobileNumber"));
                         startActivity(intent);
                     }
                 })
