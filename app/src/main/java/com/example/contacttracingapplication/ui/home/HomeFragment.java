@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
                                 generateQR_button.setVisibility(View.GONE);
                             }
                         },
-                        5000);
+                        3600000);
                 if(userHealthStatusId == "") {
                     SaveUserHealthStatus();
                 } else {
