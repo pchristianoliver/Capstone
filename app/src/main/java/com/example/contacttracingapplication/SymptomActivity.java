@@ -1,7 +1,5 @@
 package com.example.contacttracingapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,11 +10,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.contacttracingapplication.ui.home.HomeFragment;
+import com.example.contacttracingapplication.adapters.SymptomAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,19 @@ public class SymptomActivity extends AppCompatActivity {
     List<String> userSymptoms = new ArrayList<String>();
     String userId = "", userHealthStatusId = "";
     SharedPreferences storedData;
+    RecyclerView symptoms_recyclerView;
+
+    String[] title = {
+            "Fever",
+            "Dry Cough",
+            "Fatigue",
+            "Aches and Pains",
+            "Runny Nose",
+            "Sore Throat",
+            "Shortness of Breath",
+            "Diarrhea"
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +54,17 @@ public class SymptomActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_symptom);
 
+        symptoms_recyclerView = findViewById(R.id.symptomsRecycleView);
+
+        SymptomAdapter adapter = new SymptomAdapter(title);
+        symptoms_recyclerView.setAdapter(adapter);
+        symptoms_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         submit_button = findViewById(R.id.submitBtn);
         cancel_btn = findViewById(R.id.cancel_btn);
 
         fever_checkbox = findViewById(R.id.feverCheckbox);
-        dryCough_checkbox = findViewById(R.id.dryCoughCheckbox);
-        fatigue_checkbox = findViewById(R.id.fatigueCheckbox);
-        aches_checkbox = findViewById(R.id.acheCheckbox);
-        runnyNose_checkbox = findViewById(R.id.runnyNoseCheckbox);
-        soreThroat_checkbox = findViewById(R.id.soreThroatCheckbox);
-        diarrhea_checkbox = findViewById(R.id.diarrheaCheckbox);
-        headache_checkbox = findViewById(R.id.headAcheCheckbox);
-        lostOfSmell_checkbox = findViewById(R.id.lostOfSmellCheckbox);
+
 
         storedData = getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
@@ -59,7 +73,7 @@ public class SymptomActivity extends AppCompatActivity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (String symptom: userSymptoms) {
+                for (String symptom : userSymptoms) {
                     SaveUserSymptoms(symptom);
                 }
             }
@@ -75,13 +89,14 @@ public class SymptomActivity extends AppCompatActivity {
     }
 
     public void SymptomCheck(View v) {
-        CheckBox checkBox = (CheckBox)v;
-        if(checkBox.isChecked()){
+        CheckBox checkBox = (CheckBox) v;
+        if (checkBox.isChecked()) {
             userSymptoms.add(checkBox.getText().toString());
         }
     }
 
     private String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+
     public void SaveUserSymptoms(String symptom) {
         JSONObject userObject = new JSONObject();
         try {
@@ -94,6 +109,7 @@ public class SymptomActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
