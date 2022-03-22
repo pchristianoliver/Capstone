@@ -1,7 +1,5 @@
 package com.example.contacttracingapplication.ui.log;
 
-import static android.R.layout.*;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,9 +25,7 @@ import com.example.contacttracingapplication.databinding.ActivityMainBinding;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -87,7 +83,6 @@ public class LogFragment extends Fragment {
         }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-
 
         storedData = getActivity().getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");

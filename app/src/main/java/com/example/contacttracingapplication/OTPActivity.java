@@ -38,6 +38,7 @@ public class OTPActivity extends AppCompatActivity {
 
     private EditText otp1,otp2,otp3,otp4,otp5,otp6;
     private Button proceedBtn;
+
     String mVerificationId = "";
     PhoneAuthProvider.ForceResendingToken mResendToken;
 
@@ -46,12 +47,6 @@ public class OTPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpactivity);
         StartValidatePhoneNumber();
-
-        Intent intent=getIntent();
-        /*
-            [sixDigitCode] ito yung sesend sa user
-        */
-        ArrayList<Integer> sixDigitCode = intent.getIntegerArrayListExtra("otp");
 
         proceedBtn = findViewById(R.id.proceed);
         otp1 = findViewById(R.id.edDigit1);
@@ -66,7 +61,6 @@ public class OTPActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (otp1.getText().toString().equals("")) {
@@ -74,9 +68,7 @@ public class OTPActivity extends AppCompatActivity {
                 } else {
                     otp2.requestFocus();
                 }
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -88,7 +80,6 @@ public class OTPActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (otp2.getText().toString().equals("")) {
@@ -97,7 +88,6 @@ public class OTPActivity extends AppCompatActivity {
                     otp3.requestFocus();
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -180,19 +170,8 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                /*
-                if (otp1.getText().toString().equals(sixDigitCode.get(0).toString()) && otp2.getText().toString().equals(sixDigitCode.get(1).toString()) && otp3.getText().toString().equals(sixDigitCode.get(2).toString()) && otp4.getText().toString().equals(sixDigitCode.get(3).toString()) && otp5.getText().toString().equals(sixDigitCode.get(4).toString()) && otp6.getText().toString().equals(sixDigitCode.get(5).toString()))
-                {
-                    Toast.makeText(OTPActivity.this, "ang galing mo pia", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
-                    intent.putExtra("MobileNumber", getIntent().getStringExtra("MobileNumber"));
-                    //startActivity(intent);
-                }
-                else {
-                    Toast.makeText(OTPActivity.this, "mali ka kapatid", Toast.LENGTH_SHORT).show();
-                }*/
+                VerifyPhoneNumberWithCode();
             }
-
         });
 
         proceedBtn.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +208,6 @@ public class OTPActivity extends AppCompatActivity {
                 // The SMS quota for the project has been exceeded
                 Log.e("onVerificationFailed: ", "Quota");
             }
-
             // Show a message and update the UI
         }
 
@@ -240,7 +218,6 @@ public class OTPActivity extends AppCompatActivity {
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
             Log.d(TAG, "onCodeSent:" + verificationId);
-
             // Save verification ID and resending token so we can use them later
             mVerificationId = verificationId;
             mResendToken = token;
@@ -258,6 +235,7 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     private void VerifyPhoneNumberWithCode() {
+        Toast.makeText(this, "Validating..", Toast.LENGTH_SHORT).show();
         String code = otp1.getText().toString() + otp2.getText().toString() + otp3.getText().toString() + otp4.getText().toString() + otp5.getText().toString() + otp6.getText().toString();
         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
                 mVerificationId,

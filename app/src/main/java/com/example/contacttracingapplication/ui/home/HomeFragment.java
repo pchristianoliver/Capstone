@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -80,6 +81,7 @@ public class HomeFragment extends Fragment {
 
         if(storedData.getString("temperature", "") != "") {
             GenerateQRCode();
+            qrView.setVisibility(View.GONE);
         }
 
         GetUserHealthStatusId();
@@ -119,6 +121,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 GenerateQRCode();
+                new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                qrView.setVisibility(View.GONE);
+                                temperature.setText("");
+                                generateQR_button.setVisibility(View.GONE);
+                            }
+                        },
+                        5000);
                 if(userHealthStatusId == "") {
                     SaveUserHealthStatus();
                 } else {

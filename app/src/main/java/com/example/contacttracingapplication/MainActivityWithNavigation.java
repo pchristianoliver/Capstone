@@ -24,8 +24,6 @@ public class MainActivityWithNavigation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         binding = ActivityMainWithNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
