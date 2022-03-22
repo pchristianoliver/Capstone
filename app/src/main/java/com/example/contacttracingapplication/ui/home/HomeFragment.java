@@ -260,11 +260,12 @@ public class HomeFragment extends Fragment {
                         userHealthStatusId = response.get("id").toString();
                         editor.putString("userHealthStatus", response.get("id").toString());
                         editor.commit();
+                        Log.e("GetUserHealthStatusId: ", response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                error -> Log.e("Rest_Response", error.toString())
+                error -> userHealthStatusId = ""
         );
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 1000,
