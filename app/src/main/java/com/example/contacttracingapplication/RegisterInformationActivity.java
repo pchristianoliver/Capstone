@@ -59,8 +59,6 @@ public class RegisterInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_information);
 
-        Log.e("onCreate: ", getIntent().getStringExtra("MobileNumber"));
-
         SharedPreferences storedData = getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         UserId = storedData.getString("userId", ""); // RETRIEVE VALUES FROM SHAREDPREFERENCES
 

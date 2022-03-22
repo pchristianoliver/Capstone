@@ -198,9 +198,6 @@ public class OTPActivity extends AppCompatActivity {
         proceedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
-                intent.putExtra("MobileNumber", getIntent().getStringExtra("MobileNumber"));
-                //startActivity(intent);
                 VerifyPhoneNumberWithCode();
             }
         });
