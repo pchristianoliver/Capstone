@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -34,6 +36,9 @@ import com.google.zxing.WriterException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -77,7 +82,6 @@ public class HomeFragment extends Fragment {
             GenerateQRCode();
         }
 
-
         GetUserHealthStatusId();
 
         healthCheck_button.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +91,27 @@ public class HomeFragment extends Fragment {
                 i = new Intent(view.getContext(),
                         SymptomActivity.class);
                 startActivity(i);
+            }
+        });
+
+        temperature.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (temperature.getText().toString().equals("")) {
+                    generateQR_button.setVisibility(View.GONE);
+                } else {
+                    generateQR_button.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -123,7 +148,6 @@ public class HomeFragment extends Fragment {
         JSONObject userObject = new JSONObject();
         try {
             userObject.put("userId", userId);
-            userObject.put("temperature", temperature.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -167,10 +191,11 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
     private void SaveUserHealthStatus(){
         JSONObject userObject = new JSONObject();
         try {
-            userObject.put("dateTime", "2018-03-29T13:34:00.000");
+            userObject.put("dateTime", sdf.format(new Date()));
             userObject.put("userId", userId);
             userObject.put("temperature", temperature.getText());
         } catch (JSONException e) {
@@ -193,7 +218,7 @@ public class HomeFragment extends Fragment {
         JSONObject userObject = new JSONObject();
         try {
             userObject.put("id", userHealthStatusId);
-            userObject.put("dateTime", "2018-03-29T13:34:00.000");
+            userObject.put("dateTime", sdf.format(new Date()));
             userObject.put("userId", userId);
             userObject.put("temperature", Double.parseDouble(temperature.getText().toString()));
         } catch (JSONException e) {
