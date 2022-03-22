@@ -1,10 +1,14 @@
 package com.example.contacttracingapplication;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -12,32 +16,42 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthProvider;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class OTPActivity extends AppCompatActivity {
 
     private EditText otp1,otp2,otp3,otp4,otp5,otp6;
     private Button proceedBtn;
+    String mVerificationId = "";
+    PhoneAuthProvider.ForceResendingToken mResendToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpactivity);
+        StartValidatePhoneNumber();
 
         Intent intent=getIntent();
         /*
             [sixDigitCode] ito yung sesend sa user
         */
         ArrayList<Integer> sixDigitCode = intent.getIntegerArrayListExtra("otp");
-
-        // TO CHECK LANG YUNG GENERATED 6 DIGIT CODE
-        //  CHECK [Log.e] for OUTPUT
-
-        String code = "";
-        for(Integer digit: sixDigitCode) {
-           code += String.valueOf(digit);
-        }
-        Log.e("_", code);
 
         proceedBtn = findViewById(R.id.proceed);
         otp1 = findViewById(R.id.edDigit1);
@@ -166,17 +180,17 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                /*
                 if (otp1.getText().toString().equals(sixDigitCode.get(0).toString()) && otp2.getText().toString().equals(sixDigitCode.get(1).toString()) && otp3.getText().toString().equals(sixDigitCode.get(2).toString()) && otp4.getText().toString().equals(sixDigitCode.get(3).toString()) && otp5.getText().toString().equals(sixDigitCode.get(4).toString()) && otp6.getText().toString().equals(sixDigitCode.get(5).toString()))
                 {
                     Toast.makeText(OTPActivity.this, "ang galing mo pia", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
                     intent.putExtra("MobileNumber", getIntent().getStringExtra("MobileNumber"));
-                    startActivity(intent);
+                    //startActivity(intent);
                 }
                 else {
                     Toast.makeText(OTPActivity.this, "mali ka kapatid", Toast.LENGTH_SHORT).show();
-
-                }
+                }*/
             }
 
         });
@@ -186,8 +200,108 @@ public class OTPActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class );
                 intent.putExtra("MobileNumber", getIntent().getStringExtra("MobileNumber"));
-                startActivity(intent);
+                //startActivity(intent);
+                VerifyPhoneNumberWithCode();
             }
         });
+    }
+
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential credential) {
+            // This callback will be invoked in two situations:
+            // 1 - Instant verification. In some cases the phone number can be instantly
+            //     verified without needing to send or enter a verification code.
+            // 2 - Auto-retrieval. On some devices Google Play services can automatically
+            //     detect the incoming verification SMS and perform verification without
+            //     user action.
+            signInWithPhoneAuthCredential(credential);
+            Log.d(TAG, "onVerificationCompleted:" + credential);
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            // This callback is invoked in an invalid request for verification is made,
+            // for instance if the the phone number format is not valid.
+            Log.w(TAG, "onVerificationFailed", e);
+
+            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                // Invalid request
+                Log.e("onVerificationFailed: ", "Invalid request");
+            } else if (e instanceof FirebaseTooManyRequestsException) {
+                // The SMS quota for the project has been exceeded
+                Log.e("onVerificationFailed: ", "Quota");
+            }
+
+            // Show a message and update the UI
+        }
+
+        @Override
+        public void onCodeSent(@NonNull String verificationId,
+                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
+            // The SMS verification code has been sent to the provided phone number, we
+            // now need to ask the user to enter the code and then construct a credential
+            // by combining the code with a verification ID.
+            Log.d(TAG, "onCodeSent:" + verificationId);
+
+            // Save verification ID and resending token so we can use them later
+            mVerificationId = verificationId;
+            mResendToken = token;
+        }
+    };
+
+    public void StartValidatePhoneNumber() {
+        PhoneAuthOptions option = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                .setPhoneNumber("+63" + getIntent().getStringExtra("MobileNumber"))
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(this)
+                .setCallbacks(mCallbacks)
+                .build();
+        PhoneAuthProvider.verifyPhoneNumber(option);
+    }
+
+    private void VerifyPhoneNumberWithCode() {
+        String code = otp1.getText().toString() + otp2.getText().toString() + otp3.getText().toString() + otp4.getText().toString() + otp5.getText().toString() + otp6.getText().toString();
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
+                mVerificationId,
+                code.trim()
+        );
+        Log.e("code ", code.toString());
+        signInWithPhoneAuthCredential(phoneAuthCredential);
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(OTPActivity.this, "Invalid OTP, please try again", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void ResendCode() {
+        PhoneAuthOptions option = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                .setPhoneNumber("+63" + getIntent().getStringExtra("MobileNumber"))
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(this)
+                .setCallbacks(mCallbacks)
+                .setForceResendingToken(mResendToken)
+                .build();
+        PhoneAuthProvider.verifyPhoneNumber(option);
     }
 }

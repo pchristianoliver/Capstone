@@ -71,6 +71,7 @@
         android:background="@color/mclcolor"
         android:padding="15dp"
         android:text="Generate QR"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

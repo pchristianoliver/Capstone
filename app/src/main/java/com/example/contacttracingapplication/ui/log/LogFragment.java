@@ -1,5 +1,7 @@
 package com.example.contacttracingapplication.ui.log;
 
+import static android.R.layout.*;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,11 +22,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.contacttracingapplication.R;
+import com.example.contacttracingapplication.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,14 +72,23 @@ public class LogFragment extends Fragment {
 
     SharedPreferences storedData;
     String userId;
+    ArrayAdapter<String> adapter;
+    List<ListModel> activityList = new ArrayList<ListModel>();
+    ListView listView;
+    ActivityMainBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+
         storedData = getActivity().getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
         GetUserLog();
@@ -118,7 +132,10 @@ public class LogFragment extends Fragment {
         }
     }
 
-    List<Object> activityList = new ArrayList<Object>();
+    List<String> activityTime = new ArrayList<String>();
+    List<String> building = new ArrayList<String>();
+    ArrayList<ListModel> listModels = new ArrayList<>();
+    ListModel list;
     public void GetBuildingName(String buildingId, String activityDate) {
         List<String> listObject = new ArrayList<String>();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -128,14 +145,18 @@ public class LogFragment extends Fragment {
                 null,
                 response -> {
                     try {
-                        listObject.add(response.get("buildingName").toString());
-                        listObject.add(activityDate);
-                        activityList.add(listObject);
-                        Log.e("GetBuildingName: ", activityList.toString());
+                        building.add(response.get("buildingName").toString());
+                        activityTime.add(activityDate);
+                        list = new ListModel(response.get("buildingName").toString(), activityDate);
+                        listModels.add(list);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                },
+                    ArrayList<ListModel> list = new ArrayList<ListModel>();
+                    ListAdapter adapter = new ListAdapter(getContext(), listModels);
+                    ListView listView = (ListView) getActivity().findViewById(R.id.list_view);
+                    listView.setAdapter(adapter);
+                 },
                 error -> Log.e("building", error.toString())
         );
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(

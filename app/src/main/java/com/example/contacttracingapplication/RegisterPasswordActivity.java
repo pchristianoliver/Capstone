@@ -65,7 +65,6 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 response -> Log.e("Rest Response", "Success"),
                 error -> Log.e("Rest Response", error.toString())
         );
-
         requestQueue.add(jsonObjectRequest);
     }
 

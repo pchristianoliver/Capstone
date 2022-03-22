@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "977925074945",
+    "project_id": "safety-wizard-auth",
+    "storage_bucket": "safety-wizard-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977925074945:android:5b3be372028146a33bd000",
+        "android_client_info": {
+          "package_name": "com.example.contacttracingapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977925074945-r95fru2hnthit6jgegvqc24976hcrbur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.contacttracingapplication",
+            "certificate_hash": "3c0f20653f5aa3d7dd7585da113edc2a8fbd3148"
+          }
+        },
+        {
+          "client_id": "977925074945-6o73smuh7sk7npgv4om1hu5v1kid9bo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg8WEJLvmf9nZk7IQNNXoJtx0V16GAHMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977925074945-6o73smuh7sk7npgv4om1hu5v1kid9bo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
