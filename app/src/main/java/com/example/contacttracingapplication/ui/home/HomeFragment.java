@@ -34,14 +34,12 @@ import com.example.contacttracingapplication.SymptomActivity;
 import com.example.contacttracingapplication.databinding.FragmentHomeBinding;
 import com.google.zxing.WriterException;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicReference;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -130,7 +128,6 @@ public class HomeFragment extends Fragment {
                             }
                         },
                         3600000);
-                Log.e("onClick: ", responseData);
                 if(responseData.toLowerCase().trim().equals(("None").toLowerCase().trim())) {
                     SaveUserHealthStatus();
                 } else {
