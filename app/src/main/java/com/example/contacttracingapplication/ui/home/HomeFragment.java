@@ -34,6 +34,7 @@ import com.example.contacttracingapplication.SymptomActivity;
 import com.example.contacttracingapplication.databinding.FragmentHomeBinding;
 import com.google.zxing.WriterException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
     QRGEncoder qrgEncoder;
     ImageView qrView;
     Bitmap bitmap;
-    String userId;
+    String userId, responseData, userHealthStatusId = "off";
     SharedPreferences storedData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -78,13 +79,13 @@ public class HomeFragment extends Fragment {
         storedData = getActivity().getApplicationContext().getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
         GetUserFullName();
+        CheckIfHealthAlreadyExist(userId);
+        GetUserHealthStatusId(userId);
 
         if(storedData.getString("temperature", "") != "") {
             GenerateQRCode();
             qrView.setVisibility(View.GONE);
         }
-
-        GetUserHealthStatusId();
 
         healthCheck_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +111,6 @@ public class HomeFragment extends Fragment {
                     generateQR_button.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -130,10 +130,10 @@ public class HomeFragment extends Fragment {
                             }
                         },
                         3600000);
-                if(userHealthStatusId == "") {
+                if(responseData.equals(("None").toLowerCase().trim())) {
                     SaveUserHealthStatus();
                 } else {
-                    UpdateUserHealthStatus();
+                    UpdateUserHealthStatus(userHealthStatusId);
                 }
             }
         });
@@ -224,11 +224,10 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void UpdateUserHealthStatus(){
-        GetUserHealthStatusId();
+    private void UpdateUserHealthStatus(String healthStatusId){
         JSONObject userObject = new JSONObject();
         try {
-            userObject.put("id", userHealthStatusId);
+            userObject.put("id", healthStatusId);
             userObject.put("dateTime", sdf.format(new Date()));
             userObject.put("userId", userId);
             userObject.put("temperature", Double.parseDouble(temperature.getText().toString()));
@@ -247,8 +246,30 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
-    String userHealthStatusId;
-    private void GetUserHealthStatusId() {
+    private void CheckIfHealthAlreadyExist(String userId) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                API_URL + "UserHealthStatus/check/" + userId,
+                null,
+                response -> {
+                    try {
+                        responseData = String.valueOf(response.get("response"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("GetUserHealthStatusId: ", error.toString())
+        );
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                1000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void GetUserHealthStatusId(String userId) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -256,16 +277,12 @@ public class HomeFragment extends Fragment {
                 null,
                 response -> {
                     try {
-                        SharedPreferences.Editor editor = storedData.edit();
-                        userHealthStatusId = response.get("id").toString();
-                        editor.putString("userHealthStatus", response.get("id").toString());
-                        editor.commit();
-                        Log.e("GetUserHealthStatusId: ", response.toString());
+                        userHealthStatusId = String.valueOf(response.get("id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                error -> userHealthStatusId = ""
+                error -> Log.e("GetUserHealthStatusId: ", error.toString())
         );
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 1000,
