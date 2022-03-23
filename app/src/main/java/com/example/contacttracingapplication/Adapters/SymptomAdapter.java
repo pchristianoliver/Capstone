@@ -57,7 +57,6 @@ public class SymptomAdapter extends RecyclerView.Adapter<SymptomAdapter.ViewHold
                     } else {
                         userSymptoms.add(fever.getText().toString());
                     }
-                    Log.e("onClick: ", userSymptoms.toString());
                 }
             });
         }
