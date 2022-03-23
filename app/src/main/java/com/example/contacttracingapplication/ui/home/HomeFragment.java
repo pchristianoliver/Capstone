@@ -130,7 +130,8 @@ public class HomeFragment extends Fragment {
                             }
                         },
                         3600000);
-                if(responseData.equals(("None").toLowerCase().trim())) {
+                Log.e("onClick: ", responseData);
+                if(responseData.toLowerCase().trim().equals(("None").toLowerCase().trim())) {
                     SaveUserHealthStatus();
                 } else {
                     UpdateUserHealthStatus(userHealthStatusId);
