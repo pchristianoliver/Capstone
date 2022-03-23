@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:clickable="false"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -67,30 +68,28 @@
         android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:background="@color/mclcolor"
+        android:background="@drawable/button"
+        android:enabled="false"
         android:padding="15dp"
         android:text="Generate QR"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/healthcheck_btn"
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="#19A558"
-        android:padding="15dp"
         android:text="Health Check"
+        android:background="@drawable/button_healthcheck"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/generateqr_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.954"
         app:layout_constraintStart_toStartOf="parent" />
 
 
