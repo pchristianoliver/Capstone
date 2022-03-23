@@ -1,5 +1,6 @@
 package com.example.contacttracingapplication.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.contacttracingapplication.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SymptomAdapter extends RecyclerView.Adapter<SymptomAdapter.ViewHolder> {
 
     private String[] localDataSet;
+    public List<String> userSymptoms = new ArrayList<String>();
 
     @NonNull
     @Override
@@ -22,7 +27,6 @@ public class SymptomAdapter extends RecyclerView.Adapter<SymptomAdapter.ViewHold
                 .inflate(R.layout.recyclerview_symptoms, parent, false);
         return new ViewHolder(view);
     }
-
 
     public SymptomAdapter(String[] dataSet) {
         localDataSet = dataSet;
@@ -45,7 +49,17 @@ public class SymptomAdapter extends RecyclerView.Adapter<SymptomAdapter.ViewHold
             super(itemView);
             fever = itemView.findViewById(R.id.feverCheckbox);
 
-
+            fever.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(userSymptoms.contains(fever.getText().toString())) {
+                        userSymptoms.remove(userSymptoms.indexOf(fever.getText().toString()));
+                    } else {
+                        userSymptoms.add(fever.getText().toString());
+                    }
+                    Log.e("onClick: ", userSymptoms.toString());
+                }
+            });
         }
     }
 }

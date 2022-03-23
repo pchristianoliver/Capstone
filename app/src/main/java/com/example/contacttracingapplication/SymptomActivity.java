@@ -65,7 +65,6 @@ public class SymptomActivity extends AppCompatActivity {
 
         fever_checkbox = findViewById(R.id.feverCheckbox);
 
-
         storedData = getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
         userHealthStatusId = storedData.getString("userHealthStatus", "");
@@ -73,7 +72,13 @@ public class SymptomActivity extends AppCompatActivity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (String symptom : userSymptoms) {
+                if(adapter.userSymptoms.size() == 0)
+                {
+                    Toast.makeText(SymptomActivity.this, "Nothing was selected", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                for (String symptom : adapter.userSymptoms) {
                     SaveUserSymptoms(symptom);
                 }
             }
