@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
         CheckIfHealthAlreadyExist(userId);
         GetUserHealthStatusId(userId);
 
-        if(storedData.getString("temperature", "") != "") {
+        if (storedData.getString("temperature", "") != "") {
             GenerateQRCode();
             qrView.setVisibility(View.GONE);
         }
@@ -104,11 +104,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (temperature.getText().toString().equals("")) {
-                    generateQR_button.setVisibility(View.GONE);
+                    generateQR_button.setEnabled(false);
                 } else {
-                    generateQR_button.setVisibility(View.VISIBLE);
+                    generateQR_button.setEnabled(true);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -124,11 +125,11 @@ public class HomeFragment extends Fragment {
                             public void run() {
                                 qrView.setVisibility(View.GONE);
                                 temperature.setText("");
-                                generateQR_button.setVisibility(View.GONE);
+                                generateQR_button.setEnabled(true);
                             }
                         },
                         3600000);
-                if(responseData.toLowerCase().trim().equals(("None").toLowerCase().trim())) {
+                if (responseData.toLowerCase().trim().equals(("None").toLowerCase().trim())) {
                     SaveUserHealthStatus();
                 } else {
                     UpdateUserHealthStatus(userHealthStatusId);
@@ -174,6 +175,7 @@ public class HomeFragment extends Fragment {
     }
 
     String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+
     public void GetUserFullName() {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -201,7 +203,8 @@ public class HomeFragment extends Fragment {
     }
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-    private void SaveUserHealthStatus(){
+
+    private void SaveUserHealthStatus() {
         JSONObject userObject = new JSONObject();
         try {
             userObject.put("dateTime", sdf.format(new Date()));
@@ -222,7 +225,7 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void UpdateUserHealthStatus(String healthStatusId){
+    private void UpdateUserHealthStatus(String healthStatusId) {
         JSONObject userObject = new JSONObject();
         try {
             userObject.put("id", healthStatusId);

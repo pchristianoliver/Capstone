@@ -10,7 +10,7 @@
         <item name="colorPrimaryDark">@color/lighgray</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/lighgray</item>
-        <item name="colorSecondaryVariant">@color/mclcolor</item>
+        <item name="colorSecondaryVariant">#26C80A</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/mclcolor</item>
