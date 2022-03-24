@@ -15,10 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -32,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class OTPActivity extends AppCompatActivity {
 
-    private EditText otp1,otp2,otp3,otp4,otp5,otp6;
+    private EditText otp1, otp2, otp3, otp4, otp5, otp6;
     private Button proceedBtn;
 
     String mVerificationId = "";
@@ -52,11 +50,13 @@ public class OTPActivity extends AppCompatActivity {
         otp5 = findViewById(R.id.edDigit5);
         otp6 = findViewById(R.id.edDigit6);
 
+
         otp1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (otp1.getText().toString().equals("")) {
@@ -65,6 +65,7 @@ public class OTPActivity extends AppCompatActivity {
                     otp2.requestFocus();
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -76,6 +77,7 @@ public class OTPActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (otp2.getText().toString().equals("")) {
@@ -84,6 +86,7 @@ public class OTPActivity extends AppCompatActivity {
                     otp3.requestFocus();
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -166,7 +169,7 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                VerifyPhoneNumberWithCode();
+
             }
         });
 
@@ -242,15 +245,6 @@ public class OTPActivity extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         FirebaseAuth.getInstance().signInWithCredential(credential)
-                /*
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Intent intent = new Intent(OTPActivity.this, RegisterInformationActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                */
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -263,10 +257,17 @@ public class OTPActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(OTPActivity.this, "Invalid OTP, please try again", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OTPActivity.this, RegisterMobileNumberActivity.class);
-                        startActivity(intent);
+                        otp1.setText("");
+                        otp2.setText("");
+                        otp3.setText("");
+                        otp4.setText("");
+                        otp5.setText("");
+                        otp6.setText("");
+                        otp1.requestFocus();
+
                     }
                 });
+
     }
 
     private void ResendCode() {
