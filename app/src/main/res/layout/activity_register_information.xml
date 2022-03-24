@@ -105,7 +105,8 @@
                     android:layout_width="152dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="28dp"
-                    android:background="@drawable/input_field" />
+                    android:background="@drawable/input_field"
+                    android:inputType="number"/>
 
                 <TextView
                     android:layout_width="175dp"
