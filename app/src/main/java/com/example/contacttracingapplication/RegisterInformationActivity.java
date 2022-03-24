@@ -39,7 +39,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
     private final String[] gender = {"Male", "Female"};
 
     private Spinner regionSpinner, provinceSpinner, citySpinner, barangaySpinner, genderSpinner;
-    private EditText firstNameEt, lastNameEt, middleNameEt, birthdateEt;
+    private EditText firstNameEt, lastNameEt, middleNameEt, birthdateEt, ageEt;
     private DatePickerDialog.OnDateSetListener setListener;
     private Button proceedBtn;
 
@@ -64,6 +64,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
         barangaySpinner = findViewById(R.id.barangay);
         genderSpinner = findViewById(R.id.gender_spinner);
         proceedBtn = findViewById(R.id.proceed);
+        ageEt = findViewById(R.id.age);
 
         initializeGetGender();
         initializeCalendar();
