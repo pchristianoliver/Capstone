@@ -1,7 +1,5 @@
 package com.example.contacttracingapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,10 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.contacttracingapplication.Models.BarangayModel;
 import com.example.contacttracingapplication.Models.CityModel;
 import com.example.contacttracingapplication.Models.ProvinceModel;
@@ -34,11 +29,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -52,7 +44,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
     private Button proceedBtn;
 
     private String UserId;
-    private String API_URL = "https://mclogapi20220219222916.azurewebsites.net/api/";
+    private String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

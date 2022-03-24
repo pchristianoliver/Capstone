@@ -29,9 +29,7 @@ import java.util.List;
 
 public class SymptomActivity extends AppCompatActivity {
     Button submit_button, cancel_btn;
-    CheckBox fever_checkbox, dryCough_checkbox, fatigue_checkbox, aches_checkbox,
-            runnyNose_checkbox, soreThroat_checkbox, diarrhea_checkbox,
-            headache_checkbox, lostOfSmell_checkbox;
+    CheckBox fever_checkbox;
     List<String> userSymptoms = new ArrayList<String>();
     String userId = "", userHealthStatusId = "";
     SharedPreferences storedData;
