@@ -70,12 +70,14 @@ public class RegisterInformationActivity extends AppCompatActivity {
         regionSpinner = findViewById(R.id.region);
         citySpinner = findViewById(R.id.city);
         barangaySpinner = findViewById(R.id.barangay);
-        genderSpinner = findViewById(R.id.spinner);
+        genderSpinner = findViewById(R.id.gender_spinner);
         proceedBtn = findViewById(R.id.proceed);
 
         initializeGetGender();
         initializeCalendar();
         initializeGetAddress();
+
+
 
         proceedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +100,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
     }
 
     private void RegisterUserInformation(){
-        Spinner genderSpinner = (Spinner) findViewById(R.id.spinner);
+        Spinner genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
         Spinner provinceSpinner = findViewById(R.id.province);
         Spinner regionSpinner = findViewById(R.id.region);
         Spinner citySpinner = findViewById(R.id.city);
@@ -109,7 +111,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
             userObject.put("firstName", firstNameEt.getText().toString());
             userObject.put("lastName", lastNameEt.getText().toString());
             userObject.put("middleName", middleNameEt.getText().toString());
-            userObject.put("birthDate", "23232");
+            userObject.put("birthDate", "1234");
             userObject.put("gender", genderSpinner.getSelectedItem().toString());
             userObject.put("province", provinceSpinner.getSelectedItem().toString());
             userObject.put("region", regionSpinner.getSelectedItem().toString());

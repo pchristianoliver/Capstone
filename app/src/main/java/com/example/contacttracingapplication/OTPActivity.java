@@ -237,12 +237,12 @@ public class OTPActivity extends AppCompatActivity {
                 mVerificationId,
                 code.trim()
         );
-        Log.e("code ", code.toString());
         signInWithPhoneAuthCredential(phoneAuthCredential);
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         FirebaseAuth.getInstance().signInWithCredential(credential)
+                /*
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -250,6 +250,7 @@ public class OTPActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 })
+                */
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -262,6 +263,8 @@ public class OTPActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(OTPActivity.this, "Invalid OTP, please try again", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(OTPActivity.this, RegisterMobileNumberActivity.class);
+                        startActivity(intent);
                     }
                 });
     }

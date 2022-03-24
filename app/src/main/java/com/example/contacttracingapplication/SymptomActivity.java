@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -67,7 +68,7 @@ public class SymptomActivity extends AppCompatActivity {
 
         storedData = getSharedPreferences("storedData", Context.MODE_PRIVATE);
         userId = storedData.getString("userId", "");
-        userHealthStatusId = storedData.getString("userHealthStatus", "");
+        GetUserHealthStatusId(userId);
 
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +125,29 @@ public class SymptomActivity extends AppCompatActivity {
                 response -> Log.e("Rest Response", "Success"),
                 error -> Log.e("Rest Response", error.toString())
         );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void GetUserHealthStatusId(String userId) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                API_URL + "UserHealthStatus/" + userId,
+                null,
+                response -> {
+                    try {
+                        userHealthStatusId = String.valueOf(response.get("id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("GetUserHealthStatusId: ", error.toString())
+        );
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                1000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
         requestQueue.add(jsonObjectRequest);
     }
 }
