@@ -86,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },
                 error -> {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    btnLogin.setVisibility(View.VISIBLE);
                     Log.e("Rest_Response", error.toString());
                 }
         );
@@ -103,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
     private void RedirectToMainPage(@NonNull String message) {
         if (message.length() > 5) {
             Toast.makeText(getApplicationContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
+            btnLogin.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
             return;
         } else {
             Intent intent = new Intent(MainActivity.this, MainActivityWithNavigation.class);
