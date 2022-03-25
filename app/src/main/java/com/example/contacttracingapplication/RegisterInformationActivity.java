@@ -111,7 +111,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
             userObject.put("city", citySpinner.getSelectedItem().toString());
             userObject.put("baranggay", barangaySpinner.getSelectedItem().toString());
             userObject.put("phoneNumber", getIntent().getStringExtra("MobileNumber"));
-            userObject.put("age", 12);
+            userObject.put("age", ageEt.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
