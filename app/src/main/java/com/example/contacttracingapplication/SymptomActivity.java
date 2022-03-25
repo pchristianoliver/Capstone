@@ -99,7 +99,7 @@ public class SymptomActivity extends AppCompatActivity {
         }
     }
 
-    private String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+    private String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/";
 
     public void SaveUserSymptoms(String symptom) {
         JSONObject userObject = new JSONObject();

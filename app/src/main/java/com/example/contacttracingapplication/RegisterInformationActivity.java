@@ -44,7 +44,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
     private Button proceedBtn;
 
     private String UserId;
-    private String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api";
+    private String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api///";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

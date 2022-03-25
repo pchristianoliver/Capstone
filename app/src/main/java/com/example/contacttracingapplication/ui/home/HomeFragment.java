@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+    String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/";
 
     public void GetUserFullName() {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());

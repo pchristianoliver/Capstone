@@ -1,8 +1,5 @@
 package com.example.contacttracingapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +11,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    final String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+    final String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/";
     public void AuthenticateUser() {
         JSONObject credentialObject = new JSONObject();
         try {

@@ -3,15 +3,14 @@ package com.example.contacttracingapplication.ui.log;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -96,7 +95,7 @@ public class LogFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_log, container, false);
     }
 
-    String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/";
+    String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/";
     JSONArray array = new JSONArray();
     protected void GetUserLog() {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
