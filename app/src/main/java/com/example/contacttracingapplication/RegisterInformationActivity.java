@@ -104,7 +104,7 @@ public class RegisterInformationActivity extends AppCompatActivity {
             userObject.put("firstName", firstNameEt.getText().toString());
             userObject.put("lastName", lastNameEt.getText().toString());
             userObject.put("middleName", middleNameEt.getText().toString());
-            userObject.put("birthDate", "1234");
+            userObject.put("birthDate", birthdateEt.getText().toString());
             userObject.put("gender", genderSpinner.getSelectedItem().toString());
             userObject.put("province", provinceSpinner.getSelectedItem().toString());
             userObject.put("region", regionSpinner.getSelectedItem().toString());
