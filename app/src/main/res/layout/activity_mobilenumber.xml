@@ -32,6 +32,8 @@
         android:hint="9xxxxxxxxx"
         android:inputType="phone"
         android:maxLength="10"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
         tools:layout_editor_absoluteX="41dp"
         tools:layout_editor_absoluteY="362dp" />
 

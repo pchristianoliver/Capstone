@@ -12,24 +12,31 @@
         android:id="@+id/mobileNumber"
         android:layout_width="303sp"
         android:layout_height="48dp"
-        android:layout_marginTop="592dp"
+        android:layout_marginTop="504dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="9xxxxxxxxx"
         android:inputType="phone"
         android:maxLength="10"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtDontHaveAccount"
+        android:id="@+id/txtRegisterHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="4dp"
-        android:text="Don't have an account?"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:text="@string/register_here"
+        android:textColor="@color/mclcolor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintLeft_toLeftOf="@+id/txtDontHaveAccount"
+        app:layout_constraintStart_toEndOf="@+id/txtDontHaveAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <ProgressBar
@@ -43,28 +50,39 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.29" />
 
     <TextView
-        android:id="@+id/txtRegisterHere"
+        android:id="@+id/txtDontHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:clickable="true"
-        android:text="@string/register_here"
-        android:textColor="@color/mclcolor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/txtDontHaveAccount"
-        app:layout_constraintStart_toEndOf="@+id/txtDontHaveAccount"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="24dp"
+        android:text="Don't have an account?"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="303sp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_field"
+        android:ems="10"
+        android:hint="Password"
+        android:password="true"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobileNumber"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button"
         android:text="Login"
         app:backgroundTint="@color/mclcolor"
@@ -72,20 +90,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="303sp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/input_field"
-        android:ems="10"
-        android:hint="Password"
-        android:password="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mobileNumber"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

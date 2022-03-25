@@ -45,7 +45,9 @@
                 android:layout_marginTop="5dp"
                 android:autofillHints="name"
                 android:background="@drawable/input_field"
-                android:ems="10" />
+                android:ems="10"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +64,9 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_field"
-                android:ems="10" />
+                android:ems="10"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +82,9 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_field"
-                android:ems="10" />
+                android:ems="10"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -96,7 +102,9 @@
                 android:background="@drawable/input_field"
                 android:ems="10"
                 android:hint="Select Date"
-                android:inputType="date" />
+                android:inputType="date"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -117,7 +125,9 @@
                     android:layout_height="36dp"
                     android:layout_marginTop="28dp"
                     android:background="@drawable/input_field"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@null"/>
 
                 <TextView
                     android:layout_width="175dp"
@@ -205,7 +215,7 @@
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@+id/scrollView"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="9dp"
         android:background="@drawable/button"
         android:text="Proceed" />
 
